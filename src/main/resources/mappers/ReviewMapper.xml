@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.busanHere2.mapper.ReviewMapper">
+
+    <sql id="ReviewColumns">
+        board_id
+        , title
+        , content
+        , member_id
+        , shop_id
+        , view_cnt
+        , notice_yn
+        , delete_yn
+        , created_at
+        , updated_at
+    </sql>
+
+    <!-- 게시글 저장 -->
+    <insert id="save" parameterType="com.project.busanHere2.domain.review.ReviewRequest" useGeneratedKeys="true" keyProperty="boardId">
+        INSERT INTO review_board (
+        <include refid="ReviewColumns" />
+        ) VALUES (
+        #{boardId}
+        , #{title}
+        , #{content}
+        , #{memberId}
+        , #{shopId}
+        , 0
+        , #{noticeYn}
+        , 0
+        , NOW()
+        , NOW()
+        )
+    </insert>
+
+    <select id="findById" parameterType="Long" resultType="com.project.busanHere2.domain.review.ReviewResponse">
+        SELECT
+            <include refid="ReviewColumns" />
+        FROM
+            review_board
+        WHERE
+            board_id = #{boardId}
+    </select>
+
+    <update id="update" parameterType="com.project.busanHere2.domain.review.ReviewRequest">
+        UPDATE review_board
+        SET
+            updated_at = NOW()
+            , title = #{title}
+            , content = #{content}
+            , member_id = #{memberId}
+            , notice_yn = #{noticeYn}
+        WHERE
+            board_id = #{boardId}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        UPDATE review_board
+        SET
+            delete_yn = 1
+        WHERE
+            board_id = #{boardId}
+    </delete>
+
+    <select id="findAll" resultType="com.project.busanHere2.domain.review.ReviewResponse">
+        SELECT
+        <include refid="ReviewColumns" />
+        FROM
+        review_board
+        WHERE
+        delete_yn = 0
+        ORDER BY
+        board_id DESC
+    </select>
+
+    <select id="count" resultType="Integer">
+        SELECT count(*) from review_board
+    </select>
+
+
+
+</mapper>

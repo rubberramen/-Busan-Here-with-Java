@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.busanHere2.test.TestMapper">
+
+    <!-- tb_post 테이블 전체 컬럼 -->
+<!--    <sql id="postColumns">-->
+<!--        shop_id-->
+<!--        , name-->
+<!--        , content-->
+<!--        , writer-->
+<!--        , view_cnt-->
+<!--        , notice_yn-->
+<!--        , delete_yn-->
+<!--        , created_date-->
+<!--        , modified_date-->
+<!--    </sql>-->
+
+    <!-- 게시글 리스트 조회 -->
+    <select id="findAllShops" resultType="com.project.busanHere2.test.TestResponse">
+        SELECT
+        *
+        FROM
+        shops
+    </select>
+
+    <!--    회원 등록-->
+<!--    <insert id="save" parameterType="com.project.BusanHere.domain.member.MemberForm">-->
+<!--        INSERT INTO members (name, nick_name, sex, passwd)-->
+<!--        values(-->
+<!--        #{name},-->
+<!--        #{nickName},-->
+<!--        #{sex},-->
+<!--        #{pw}-->
+<!--        )-->
+<!--    </insert>-->
+
+</mapper>

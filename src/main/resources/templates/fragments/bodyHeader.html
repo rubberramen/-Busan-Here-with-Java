@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="header" th:fragment="bodyHeader">
+
+    <!--<th:block th:if="${loginMember == null}">-->
+    <!--    <th:nav th:if="${loginMember == null}">-->
+    <th:block th:if="${loginMember == null}">
+        <div class="inner">
+            <div class="nav-container">
+                <div><h1 class="nav-title"><a href="/">"부산, 여기는" <img src="/busan,here_logo.png" style="position: absolute; width: 50px; top: 10px"/></a></h1></div>
+
+                <!--                <div><img src="./20230307205117.png" alt="zzz" /></div>-->
+
+                <div>
+                    <button class="nav-contact" onclick="location.href='/members/login'">Login</button>
+                    <button class="nav-contact" type="button" onclick="location.href='/members/new'">Join</button>
+                    <button class="nav-contact" type="button" onclick="location.href='/review/list'">Review</button>
+                </div>
+
+            </div>
+        </div>
+    </th:block>
+    <!--</th:block>-->
+
+    <!--<th:block th:unless="${loginMember != null}">-->
+    <!--    <th:nav th:unless="${loginMember != null}">-->
+    <th:block th:if="${loginMember != null}">
+        <div class="inner">
+            <div class="nav-container">
+                <div><h1 class="nav-title"><a href="/">"부산, 여기는" <img src="./busan,here_logo.png" style="position: absolute; width: 50px; top: 10px"/></a></h1></div>
+                <!--                <button type="button" onclick="location.href='/members/login'">Login</button>-->
+                <!--                <button type="button" onclick="location.href='/members/new'">Join</button>-->
+                <div>
+                    <button class="nav-contact" type="button" onclick="location.href='/members/logout'">Logout</button>
+                    <button class="nav-contact" type="button" onclick="location.href='/review/list'">Review</button>
+                    <button class="nav-contact" type="button" onclick="location.href='/review/new'">Review 쓰기</button>
+    <!--                <button>Review</button>-->
+    <!--                <button>Review 쓰기 </button>-->
+                </div>
+            </div>
+        </div>
+    </th:block>
+    <!--</th:block>-->
+
+
+
+
+</div>

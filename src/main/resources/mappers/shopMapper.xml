@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.busanHere2.mapper.ShopMapper">
+
+<!--    식당 전체 조회-->
+    <select id="findAllShops" resultType="com.project.busanHere2.domain.shop.ShopForm">
+        SELECT *
+            FROM
+                shops
+            ORDER BY
+                shop_id
+    </select>
+
+<!--    식당 카테고리 조회-->
+    <select id="findShopsByCategory" parameterType="String" resultType="com.project.busanHere2.domain.shop.ShopForm">
+        SELECT *
+            FROM
+                shops
+            WHERE
+                category = #{category}
+    </select>
+
+    <select id="oneShop" resultType="com.project.busanHere2.domain.shop.ShopForm">
+        SELECT *
+        FROM
+        shops
+        WHERE
+        shop_id = 3
+    </select>
+
+</mapper>
