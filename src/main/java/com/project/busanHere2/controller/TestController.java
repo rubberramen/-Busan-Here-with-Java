@@ -56,4 +56,16 @@ public class TestController {
         reviewService.update(reviewRequest);
         return "redirect:/post/list.do";
     }
+
+    @PostMapping("/post/delete.do")
+    public String deletePost(@RequestParam Long boardId) {
+        reviewService.delete(boardId);
+        return "redirect:/post/list.do";
+    }
+
+    @PostMapping("/post/test01")
+    public String test01(@RequestParam Long boardId) {
+        System.out.println("boardId = " + boardId);
+        return "redirect:/";
+    }
 }

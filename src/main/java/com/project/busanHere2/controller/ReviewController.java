@@ -48,9 +48,9 @@ public class ReviewController {
         return "review/reviewList";
     }
 
-    @GetMapping("/{reviewId}")
-    public String reviewDetail(@PathVariable Long reviewId, Model model) {
-        ReviewResponse post = reviewService.findById(reviewId);
+    @GetMapping("/{boardId}")
+    public String reviewDetail(@PathVariable Long boardId, Model model) {
+        ReviewResponse post = reviewService.findById(boardId);
         model.addAttribute("post", post);
 
         return "review/reviewDetail";
@@ -62,5 +62,13 @@ public class ReviewController {
         Long boardId = reviewRequest.getBoardId();
         String s = String.valueOf(boardId);
         return "redirect:/review/" + s;
+    }
+
+    @PostMapping("/{boardId}")
+    public String delete(@PathVariable Long boardId) {
+        System.out.println("boardId = " + boardId);
+        reviewService.delete(boardId);
+        return "redirect:/review/list";
+//        return "review/reviewList";
     }
 }
