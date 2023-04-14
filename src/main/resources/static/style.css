@@ -64,7 +64,7 @@
   }
   
   .category-item {
-    width: 25.0%;
+    width: 23.0%;   /*25.0%;*/
     height: 2.5rem;
     background: none;
     border: none;

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class TestController {
             ReviewResponse post = reviewService.findById(boardId);  // TODO: 2023-04-04 004
             model.addAttribute("post", post);
         }
-        return "review/reviewWrite1";
+        return "post/reviewWrite1";
     }
 
     @PostMapping("/post/save.do")
@@ -41,14 +42,14 @@ public class TestController {
     public String openPostList(Model model) {
         List<ReviewResponse> posts = reviewService.findAll();
         model.addAttribute("posts", posts);
-        return "review/list1";
+        return "post/list1";
     }
 
     @GetMapping("/post/view.do")
     public String openPostView(@RequestParam Long boardId, Model model) {
         ReviewResponse post = reviewService.findById(boardId);
         model.addAttribute("post", post);
-        return "review/view1";
+        return "post/view1";
     }
 
     @PostMapping("/post/update.do")
@@ -67,5 +68,39 @@ public class TestController {
     public String test01(@RequestParam Long boardId) {
         System.out.println("boardId = " + boardId);
         return "redirect:/";
+    }
+
+    @GetMapping("/fragmentTest")
+    public String fragmentTest() {
+        return "template/fragments/fragmentMain";
+    }
+
+    @GetMapping("/layoutTest")
+    public String layout() {
+        return "template/layout/layoutMainTest";
+    }
+
+    @GetMapping("layoutExtendTest")
+    public String layoutExtendsTest() {
+        return "template/layoutExtend/layoutExtendMainTest";
+    }
+
+    @GetMapping("layoutExtendTest2")
+    public String layoutExtendsTest2() {
+        return "template/layoutExtend/layoutExtendMainTest2";
+    }
+
+    @GetMapping("layoutExtendTest3")
+    public String layoutExtendsTest3() {
+        return "template/layoutExtend/layoutExtendMainTest3";
+    }
+
+    @GetMapping("/layoutTest/list")
+    public String reviews(Model model) {
+        List<ReviewResponse> posts = reviewService.findAll();
+        model.addAttribute("posts", posts);
+        ReviewResponse reviewResponse = posts.get(0);
+        model.addAttribute("reviewResponse", reviewResponse);
+        return "template/layoutExtend/layoutExtendMainTest4";
     }
 }

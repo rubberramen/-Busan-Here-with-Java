@@ -53,18 +53,17 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @GetMapping("/login") // TODO: 2023-02-17 017
+    @GetMapping("/login")
     public String loginForm(Model model) {
-        log.info("POST : loginForm()");
+        log.info("GET : loginForm()");
         model.addAttribute("memberForm", new MemberForm());
         return "members/loginForm";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/login")   // TODO: 2023-04-14 014 작동하도록 
     public String login(MemberForm memberForm, HttpServletRequest request, RedirectAttributes rttr) {
-//        log.info("{} {}", "hello", nickName);
+        log.info("/members/login  <- post");
         HttpSession session = request.getSession();
-
 
         MemberDTO loginMember = memberService.login(memberForm.getNickName(), memberForm.getPw());
         System.out.println("loginMember = " + loginMember);

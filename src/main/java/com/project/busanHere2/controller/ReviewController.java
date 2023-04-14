@@ -30,7 +30,7 @@ public class ReviewController {
         }
         List<ShopForm> allShops = shopService.findAllShops();
         model.addAttribute("allShops", allShops);
-        return "review/reviewWrite";
+        return "review/reviewWrite";   // reviewWrite-sample todo 등록일 자동 들어가도록
     }
 
     @PostMapping("/new")
@@ -53,7 +53,7 @@ public class ReviewController {
         ReviewResponse post = reviewService.findById(boardId);
         model.addAttribute("post", post);
 
-        return "review/reviewDetail";
+        return "review/reviewDetail";   //reviewDetail
     }
 
     @PostMapping("/update")

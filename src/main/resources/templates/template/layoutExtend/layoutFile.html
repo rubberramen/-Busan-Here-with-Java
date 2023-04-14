@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html th:fragment="layout (title, links, content)" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:replace="${title}">레이아웃 타이틀</title>
+
+<!--    공통-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!--    <title>⚓"부산, 여기는"</title>-->
+    <meta name="author" content="고무라면 프로젝트" />
+    <meta name="description" content="부산 맛집지도 서비스" />
+    <meta name="keywords" content="맛집지도, 유튜버맛집"/>
+
+<!--    <link rel="stylesheet" href="/style.css" />-->
+    <link rel="stylesheet" th:href="@{/style.css}" />
+<!--    <link rel="stylesheet" th:href="@{/css/default.css}" />-->
+<!--    <link rel="stylesheet" th:href="@{/css/common.css}" />-->
+<!--    <link rel="stylesheet" th:href="@{/css/content.css}" />-->
+<!--    <link rel="stylesheet" th:href="@{/css/button.css}" />-->
+
+    <link th:replace="${links}"/>
+</head>
+
+<body>
+<div class="inner">
+    <div class="nav-container">
+        <div><h1 class="nav-title"><a href="/">"부산, 여기는" <img src="/busan,here_logo.png" style="position: absolute; width: 50px; top: 10px"/></a></h1></div>
+
+        <div>
+            <button class="nav-contact" onclick="location.href='/members/login'">Login</button>
+            <button class="nav-contact" type="button" onclick="location.href='/members/new'">Join</button>
+            <button class="nav-contact" type="button" onclick="location.href='/review/list'">Review</button>
+            <button class="nav-contact" type="button" onclick="location.href='/review/new'">Review 쓰기</button>
+        </div>
+
+    </div>
+</div>
+
+<div th:replace="${content}">
+    <p>레이아웃 컨텐츠</p>
+</div>
+
+<div class="inner">
+    <div class="footer">
+        <p>
+            <h1 class="nav-contact" ><a href="/">&copy; "Busan, here"⚓</a></h1>
+        </p>
+    </div>
+</div>
+
+<script
+        type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=874fec64c0727d53128070a045d201f6&libraries=services"
+></script>
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
+        integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+></script>
+<!--<script src="/basic-script.js"></script>-->
+<script src="/axios-script.js"></script>
+
+</body>
+</html>
