@@ -30,7 +30,7 @@ public class ReviewController {
         }
         List<ShopForm> allShops = shopService.findAllShops();
         model.addAttribute("allShops", allShops);
-        return "review/reviewWrite";   // reviewWrite-sample todo 등록일 자동 들어가도록
+        return "review/reviewWrite";   // TODO: 2023-04-16 016   등록일 자동 들어가도록  // reviewWrite-sample
     }
 
     @PostMapping("/new")
