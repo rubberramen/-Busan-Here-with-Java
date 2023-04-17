@@ -3,28 +3,45 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>⚓로그인</title>
+<!--    <link rel="stylesheet" th:href="@{/style.css}" />-->
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/themes/smoothness/jquery-ui.css}">
+<!--    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">-->
+<!--    <link rel="stylesheet" th:href="@{/themes/smoothness/jquery-ui.css}">-->
+
+    <style>
+        .container {
+            max-width: 560px;
+        }
+
+        .field-error {
+        border-color: #dc3545;
+        color: #dc3545;
+        }
+    </style>
+
 </head>
 <body>
 
 <content>
+
+    <div class="py-5 text-center">
+        <h2>⚓로그인</h2>
+    </div>
+
     <div class="inner">
-        <h3 style="margin:5px">로그인</h3>
-
-
         <form action="/members/login" th:object="${memberForm}" method="post">
             <div>
-                <label th:for="nickName">닉네임&nbsp;&nbsp;&nbsp;</label>
-                <input type="text" th:field="*{nickName}" placeholder="닉네임을 입력하세요">
+                <label th:for="nickName">닉네임</label>
+                <input class="form-control" type="text" th:field="*{nickName}" placeholder="닉네임을 입력하세요">
             </div>
 
             <div>
                 <label th:for="pw">비밀번호</label>
-                <input type="password" th:field="*{pw}" placeholder="비밀번호를 입력하세요">
+                <input class="form-control" type="password" th:field="*{pw}" placeholder="비밀번호를 입력하세요">
             </div>
 
-            <button style="margin:15px" type="submit">Submit</button>
+            <hr class="my-4">
+            <button class="w-100 btn btn-primary btn-lg" type="submit">Submit</button>
         </form>
 
         <br/>
