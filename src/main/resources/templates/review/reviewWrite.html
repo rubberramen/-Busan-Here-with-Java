@@ -3,11 +3,24 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>⚓리뷰 작성</title>
-<!--    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">-->
-    <link rel="stylesheet" href="/style.css" />
-
-
+    <!--    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
+
+<style>
+        .container {
+            max-width: 560px;
+        }
+
+        .field-error {
+        border-color: #dc3545;
+        color: #dc3545;
+        }
+
+
+
+</style>
+
 <body>
 
 <content>
@@ -18,72 +31,104 @@
         <!--    </div>-->
         <!--    <br><br><br>-->
 
-        <div class="inner">
-            <section>
-                <form id="saveForm" method="post" autocomplete="off">
+        <div class="container">
+
+            <div class="py-3 text-center">
+                <h4>⚓리뷰 작성</h4>
+            </div>
+
+            <div class="container">
+                <form id="saveForm" role="form" method="post" autocomplete="off">
                     <!--/* 게시글 수정인 경우, 서버로 전달할 게시글 번호 (PK) */-->
-                    <input type="hidden" id="boardId" name="boardId" th:if="${post != null}" th:value="${post.boardId}" />
+                    <input type="hidden" id="boardId" name="boardId" th:if="${post != null}"
+                           th:value="${post.boardId}"/>
 
                     <!--/* 서버로 전달할 공지글 여부 */-->
-                    <input type="hidden" id="noticeYn" name="noticeYn" />
-                    <table class="tb tb_row">
+                    <input type="hidden" id="noticeYn" name="noticeYn"/>
+
+                    <!--                    <div>-->
+                    <!--                        <label th:for="title">제목</label> <span class="es"></span>-->
+                    <!--                        <input class="form-control" type="text" id="title" name="title" maxlength="50"-->
+                    <!--                               placeholder="제목을 입력해 주세요."/>-->
+
+                    <!--                    </div>-->
+
+
+                    <table>
                         <colgroup>
-                            <col style="width:15%;" /><col style="width:35%;" /><col style="width:15%;" /><col style="width:35%;" />
+                            <!--                                                    <col style="width:15%;" /><col style="width:35%;" /><col style="width:15%;" /><col style="width:35%;" />-->
+                            <col style="width:10%;"/>
+                            <col style="width:55%;"/>
+
                         </colgroup>
                         <tbody>
 
 
                         <tr>
-                            <th>제목 <span class="es"></span></th>
-                            <td colspan="3"><input type="text" id="title" name="title" maxlength="50" placeholder="제목을 입력해 주세요." /></td>
+                            <th><label th:for="title">제목</label> <span class="es"></span></th>
+                            <td colspan="3"><input class="form-control" type="text" id="title" name="title"
+                                                   maxlength="50" placeholder="제목을 입력해 주세요."/></td>
                         </tr>
 
                         <tr>
-                            <th>작성자 <span class="es"></span></th>
-                            <td colspan="3"><input type="text" id="memberId" name="memberId" maxlength="10" placeholder="ID를 입력해 주세요." /></td>
+                            <th><label th:for="memberId">작성자</label> <span class="es"></span></th>
+                            <td colspan="3"><input class="form-control" type="text" id="memberId" name="memberId"
+                                                   maxlength="10" placeholder="ID를 입력해 주세요."/></td>
                         </tr>
 
                         <tr>
-                            <th>식당 <span class="es"></span></th>
+                            <th><label th:for="memberId">식당</label> <span class="es"></span></th>
                             <td colspan="3">
                                 <!--                            <input type="text" id="shopId" name="shopId" maxlength="10" placeholder="이름을 입력해 주세요." />-->
                                 <!--                            <select id="shopId" name="shopId" th:field="*{shopId}">-->
-                                <select id="shopId" name="shopId" style="width:220px">
-                                    <option value="">---     선택     ---</option>
-                                    <option th:each="shop : ${allShops}" th:value="${shop?.shopId}" th:utext="${shop?.name}">고등어다찌</option>
+                                <select class="form-control" id="shopId" name="shopId">
+                                    <option value="">식당 🍽️ 선택</option>
+                                    <option th:each="shop : ${allShops}" th:value="${shop?.shopId}"
+                                            th:utext="${shop?.name}">식당
+                                    </option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
-<!--                            <th scope="row">공지글</th>-->
-<!--                            <td><span class="chkbox"><input type="checkbox" id="isNotice" name="isNotice" class="chk" /><i></i><label for="isNotice"> 설정</label></span></td>-->
+                            <!--                            <th scope="row">공지글</th>-->
+                            <!--                            <td><span class="chkbox"><input type="checkbox" id="isNotice" name="isNotice" class="chk" /><i></i><label for="isNotice"> 설정</label></span></td>-->
 
-                            <th scope="row">등록일</th>
-                            <td colspan="3"><input type="text" id="createdDate" name="createdAt" readonly /></td>
+                            <th scope="row"><label th:for="createdDate">등록일</label></th>
+                            <td colspan="3"><input class="form-control" type="text" id="createdDate" name="createdAt"
+                                                   readonly/></td>
                         </tr>
 
                         <tr>
-                            <th>내용 <span class="es"></span></th>
-                            <td colspan="3"><textarea id="content" name="content" cols="50" rows="10" placeholder="내용을 입력해 주세요."></textarea></td>
+                            <th><label th:for="content">내용</label> <span class="es"></span></th>
+                            <td colspan="3"><textarea class="form-control" id="content" name="content" cols="50"
+                                                      rows="10" placeholder="내용을 입력해 주세요."></textarea></td>
                         </tr>
                         </tbody>
                     </table>
                 </form>
-                <p class="btn_set">
-                    <button type="button" id="saveBtn" onclick="savePost();" class="btns btn_st3 btn_mid">저장</button>
-                    <a th:href="@{/review/list}" class="btns btn_bdr3 btn_mid">전체글</a>
-                </p>
-            </section>
+                <hr class="my-4">
+                <div>
+                    <button id="saveBtn" type="button" class="btn btn-info" th:onclick="savePost();">
+                        저장
+                    </button>
+                    <button type="button" class="btn btn-info" th:onclick="|location.href='@{/review/list}'|">
+                        목록
+                    </button>
+                </div>
+
+            </div>
         </div> <!--/* .content */-->
+
+
     </main>
 
 
-<script th:src="@{/js/function.js}"></script>
-<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
-<script th:src="@{/js/common.js}"></script>
-<script src="https://kit.fontawesome.com/79613ae794.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-<script th:inline="javascript">
+    <script th:src="@{/js/function.js}"></script>
+    <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{/js/common.js}"></script>
+    <script src="https://kit.fontawesome.com/79613ae794.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script th:inline="javascript">
         /*<![CDATA[*/
 
             window.onload = () => {
@@ -133,14 +178,16 @@
                 }
 
                 document.getElementById('saveBtn').disabled = true;
-                // form.noticeYn.value = form.isNotice.checked;
-                form.noticeYn.value = false;
+                form.noticeYn.value = form.isNotice.checked;
+                // form.noticeYn.value = false;
                 form.action = [[ ${post == null} ]] ? '/review/new' : '/review/update';
                 form.submit();
             }
 
         /*]]>*/
-        </script>
+
+
+    </script>
 </content>
 </body>
 </html>

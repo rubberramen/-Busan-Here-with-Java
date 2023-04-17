@@ -30,14 +30,25 @@ public class ReviewController {
         }
         List<ShopForm> allShops = shopService.findAllShops();
         model.addAttribute("allShops", allShops);
-        return "review/reviewWrite";   // TODO: 2023-04-16 016   등록일 자동 들어가도록  // reviewWrite-sample
+        return "review/reviewWrite";
+//        return "review/reviewWrite-sample";
+    }
+
+    @GetMapping("/newTest")
+    public String reviewWriteFormTest(@RequestParam(value = "boardId", required = false) final Long boardId, Model model) {
+        if (boardId != null) {
+            ReviewResponse post = reviewService.findById(boardId);
+            model.addAttribute("post", post);
+        }
+        List<ShopForm> allShops = shopService.findAllShops();
+        model.addAttribute("allShops", allShops);
+//        return "review/reviewWrite";
+        return "review/reviewWrite_xxx";
     }
 
     @PostMapping("/new")
     public String saveReview(ReviewRequest reviewRequest) {
-        log.info("포스트1  zzzzzzzzz");
         reviewService.save(reviewRequest);
-        log.info("포스트2  zzzzzzzzz");
         return "redirect:/review/list";
     }
 

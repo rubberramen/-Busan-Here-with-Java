@@ -15,48 +15,50 @@
         border-color: #dc3545;
         color: #dc3545;
         }
-    </style>
+
+</style>
 <body>
 
 <content>
     <div class="container">
-    <div class="py-5 text-center">
-        <h2>⚓회원 가입</h2>
-    </div>
+        <div class="py-5 text-center">
+            <h4>⚓회원 가입</h4>
+        </div>
 
         <div class="container">
 
-        <form role="form" action="/members/new" th:object="${memberForm}" method="post">
-            <div>
-                <label th:for="name">이름</label>
-                <input class="form-control" type="text" th:field="*{name}" placeholder="이름을 입력하세요.">
-                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect data</p>
-            </div>
-            <div>
-                <label th:for="pw">비밀번호</label>
-                <input class="form-control" type="password" th:field="*{pw}" placeholder="비밀번호는 그냥 1234...">
-                <p th:if="${#fields.hasErrors('pw')}" th:errors="*{pw}" class="fieldError">Incorrect data</p>
-            </div>
-            <div>
-                <label th:for="nickName">닉네임</label>
-                <input class="form-control" type="text" th:field="*{nickName}" placeholder="닉네임을 입력하세요.">
-                <p th:if="${#fields.hasErrors('nickName')}" th:errors="*{nickName}" class="fieldError">Incorrect data</p>
-            </div>
-            <div>
-                <label th:for="sex">성별</label>
-                <select class="form-control" name="sex" th:field="*{sex}">
-                    <option value="">선택</option>
-                    <option value="M">남자</option>
-                    <option value="F">여자</option>
-                </select>
-            </div>
+            <form role="form" action="/members/new" th:object="${memberForm}" method="post">
+                <div>
+                    <label th:for="name">이름</label>
+                    <input class="form-control" type="text" th:field="*{name}" placeholder="이름을 입력하세요.">
+                    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect data</p>
+                </div>
+                <div>
+                    <label th:for="pw">비밀번호</label>
+                    <input class="form-control" type="password" th:field="*{pw}" placeholder="비밀번호는 그냥 1234...">
+                    <p th:if="${#fields.hasErrors('pw')}" th:errors="*{pw}" class="fieldError">Incorrect data</p>
+                </div>
+                <div>
+                    <label th:for="nickName">닉네임</label>
+                    <input class="form-control" type="text" th:field="*{nickName}" placeholder="닉네임을 입력하세요.">
+                    <p th:if="${#fields.hasErrors('nickName')}" th:errors="*{nickName}" class="fieldError">Incorrect
+                        data</p>
+                </div>
+                <div>
+                    <label th:for="sex">성별</label>
+                    <select class="form-control" name="sex" th:field="*{sex}">
+                        <option value="">선택</option>
+                        <option value="M">남자</option>
+                        <option value="F">여자</option>
+                    </select>
+                </div>
 
-            <hr class="my-4">
+                <hr class="my-4">
 
-            <button type="submit" class="w-100 btn btn-primary btn-lg">Submit</button>
-        </form>
-        <br/>
-    </div>
+                <button type="submit" class="w-100 btn btn-primary btn-lg">Submit</button>
+            </form>
+            <br/>
+        </div>
     </div>
 </content>
 
