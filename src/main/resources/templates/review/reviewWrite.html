@@ -16,9 +16,6 @@
         border-color: #dc3545;
         color: #dc3545;
         }
-
-
-
 </style>
 
 <body>
@@ -149,8 +146,8 @@
         const form = document.getElementById('saveForm');
         console.log(form)
 
-        const fields = ['boardId', 'title', 'content', 'memberId', 'shopId', 'noticeYn'];
-        form.isNotice.checked = post.noticeYn;
+        const fields = ['boardId', 'title', 'content', 'memberId', 'shopId'];
+        // form.isNotice.checked = post.noticeYn;
         // form.isNotice.checked = false;
         form.createdDate.value = dayjs(post.createdAt).format('YYYY-MM-DD HH:mm');
 
@@ -178,15 +175,13 @@
                 }
 
                 document.getElementById('saveBtn').disabled = true;
-                form.noticeYn.value = form.isNotice.checked;
-                // form.noticeYn.value = false;
+                // form.noticeYn.value = form.isNotice.checked;
+                form.noticeYn.value = false;
                 form.action = [[ ${post == null} ]] ? '/review/new' : '/review/update';
                 form.submit();
             }
 
         /*]]>*/
-
-
     </script>
 </content>
 </body>

@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -68,11 +69,11 @@ public class ReviewController {
     }
 
     @PostMapping("/update")
-    public String updatePost(ReviewRequest reviewRequest) {
+    public String updatePost(ReviewRequest reviewRequest, RedirectAttributes redirectAttributes) {
         reviewService.update(reviewRequest);
-        Long boardId = reviewRequest.getBoardId();
-        String s = String.valueOf(boardId);
-        return "redirect:/review/" + s;
+        Long reviewId = reviewRequest.getBoardId();
+        redirectAttributes.addAttribute("reviewId", reviewId);
+        return "redirect:/review/{reviewId}";
     }
 
     @PostMapping("/{boardId}")
