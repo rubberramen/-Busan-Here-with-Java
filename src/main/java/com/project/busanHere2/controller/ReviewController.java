@@ -30,7 +30,6 @@ public class ReviewController {
     private final MemberService memberService;
 
     @GetMapping("/new")
-
     public String reviewWriteForm(@RequestParam(value = "boardId", required = false) final Long boardId,
                                   Model model, HttpServletRequest request) {
 

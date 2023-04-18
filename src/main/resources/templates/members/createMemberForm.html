@@ -4,6 +4,7 @@
 <head>
     <title>⚓회원가입</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/style.css}" />
 </head>
 
 <style>
@@ -27,7 +28,7 @@
 
         <div class="container">
 
-            <form role="form" action="/members/new" th:object="${memberForm}" method="post">
+            <form id="saveForm" role="form" action="/members/new" th:object="${memberForm}" method="post">
                 <div>
                     <label th:for="name">이름</label>
                     <input class="form-control" type="text" th:field="*{name}" placeholder="이름을 입력하세요.">
@@ -35,7 +36,7 @@
                 </div>
                 <div>
                     <label th:for="pw">비밀번호</label>
-                    <input class="form-control" type="password" th:field="*{pw}" placeholder="비밀번호는 그냥 1234...">
+                    <input class="form-control" type="password" th:field="*{pw}" placeholder="비밀번호는 그냥 1234로 하시는 게...">
                     <p th:if="${#fields.hasErrors('pw')}" th:errors="*{pw}" class="fieldError">Incorrect data</p>
                 </div>
                 <div>
@@ -57,9 +58,34 @@
 
                 <button type="submit" class="w-100 btn btn-primary btn-lg">Submit</button>
             </form>
+
+<!--            <p class="btn_set">-->
+<!--                <button type="button" id="saveBtn" onclick="savePost();" class="w-100 btn btn-primary btn-lg">Submit</button>-->
+<!--                <a th:href="@{/post/list.do}" class="btns btn_bdr3 btn_mid">뒤로</a>-->
+<!--            </p>-->
             <br/>
         </div>
     </div>
+
+
+<!--    <script th:inline="javascript">-->
+<!--        /*<![CDATA[*/-->
+<!--        function savePost() {-->
+<!--                console.log(11111);-->
+
+
+<!--                const form = document.getElementById('saveForm');-->
+<!--                console.log(form);-->
+
+<!--                alert( `회원가입 되었습니다. 로그인 해주세요` );-->
+
+<!--                form.action = '/members/new';-->
+<!--                form.submit();-->
+<!--            }-->
+
+
+<!--        /*]]>*/-->
+<!--    </script>-->
 </content>
 
 </body>

@@ -40,12 +40,11 @@ public class MemberService {
         if (member.getPasswd().equals(pw)) {
             return member;
         } else {
-            return null; // TODO: 2023-02-17 017
+            return null;
         }
     }
 
     public void indexGet(@SessionAttribute(name = "loginMember", required = false) MemberDTO loginMember, Model model) {
-        log.info("서비스------------");
         model.addAttribute("loginMember", loginMember);
     }
 }
