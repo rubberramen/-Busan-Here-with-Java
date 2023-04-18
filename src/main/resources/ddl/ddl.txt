@@ -1,0 +1,49 @@
+-- members definition
+
+CREATE TABLE `members` (
+  `member_id` bigint(10) NOT NULL AUTO_INCREMENT,
+  `type` tinyint(1) DEFAULT '1',
+  `name` varchar(30) NOT NULL,
+  `nick_name` varchar(30) NOT NULL,
+  `sex` char(1) NOT NULL,
+  `passwd` varchar(30) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`member_id`),
+  CONSTRAINT `CK_type` CHECK ((`type` in (0,1))),
+  CONSTRAINT `members_chk_1` CHECK ((`sex` in (_utf8mb4'M',_utf8mb4'F')))
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- review_board definition
+
+CREATE TABLE `review_board` (
+  `board_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `title` varchar(100) NOT NULL COMMENT '제목',
+  `content` varchar(3000) NOT NULL COMMENT '내용',
+  `member_id` bigint(10) NOT NULL COMMENT '작성자 id',
+  `shop_id` bigint(11) DEFAULT NULL COMMENT '식당 id',
+  `view_cnt` int(11) NOT NULL COMMENT '조회 수',
+  `notice_yn` tinyint(1) NOT NULL COMMENT '공지글 여부',
+  `delete_yn` tinyint(1) NOT NULL COMMENT '삭제 여부',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '생성일시',
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '최종 수정일시',
+  PRIMARY KEY (`board_id`),
+  KEY `member_id` (`member_id`),
+  KEY `shop_id` (`shop_id`),
+  CONSTRAINT `review_board_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `review_board_ibfk_2` FOREIGN KEY (`shop_id`) REFERENCES `shops` (`shop_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='리뷰 게시판';
+
+-- shops definition
+
+CREATE TABLE `shops` (
+  `shop_id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `address` varchar(200) NOT NULL,
+  `video_url` text NOT NULL,
+  `category` varchar(45) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `status` char(1) NOT NULL DEFAULT 'A',
+  PRIMARY KEY (`shop_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
