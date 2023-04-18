@@ -1,8 +1,10 @@
 package com.project.busanHere2.controller;
 
+import com.project.busanHere2.domain.member.MemberDTO;
 import com.project.busanHere2.domain.review.ReviewRequest;
 import com.project.busanHere2.domain.review.ReviewResponse;
 import com.project.busanHere2.domain.shop.ShopForm;
+import com.project.busanHere2.service.MemberService;
 import com.project.busanHere2.service.ReviewService;
 import com.project.busanHere2.service.ShopService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -22,15 +26,27 @@ public class ReviewController {
 
     private final ReviewService reviewService;
     private final ShopService shopService;
+    //    private final MemberController memberController;
+    private final MemberService memberService;
 
     @GetMapping("/new")
-    public String reviewWriteForm(@RequestParam(value = "boardId", required = false) final Long boardId, Model model) {
+
+    public String reviewWriteForm(@RequestParam(value = "boardId", required = false) final Long boardId,
+                                  Model model, HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+        model.addAttribute("memberId", loginMember.getMemberId());
+        model.addAttribute("memberNickName", loginMember.getNickName());
+
+
         if (boardId != null) {
             ReviewResponse post = reviewService.findById(boardId);
             model.addAttribute("post", post);
         }
         List<ShopForm> allShops = shopService.findAllShops();
         model.addAttribute("allShops", allShops);
+        memberService.indexGet(loginMember, model);
         return "review/reviewWrite";
 //        return "review/reviewWrite-sample";
     }
@@ -54,7 +70,16 @@ public class ReviewController {
     }
 
     @GetMapping("/list")
-    public String reviewList(Model model) {
+    public String reviewList(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+        if (loginMember != null) {
+            System.out.println("loginMember.toString() = " + loginMember.toString());
+//            session.setAttribute("loginMember", loginMember);
+        }
+        memberService.indexGet(loginMember, model);
+
         List<ReviewResponse> posts = reviewService.findAll();
         model.addAttribute("posts", posts);
         return "review/reviewList";

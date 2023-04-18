@@ -12,11 +12,6 @@
         .container {
             max-width: 560px;
         }
-
-        .field-error {
-        border-color: #dc3545;
-        color: #dc3545;
-        }
     </style>
 
 </head>
@@ -29,6 +24,9 @@
     </div>
 
     <div class="inner">
+
+        <div class="field-error" th:if="${not #strings.isEmpty(loginFail)}" th:text="${loginFail}"><h3 > 실패 메시지 </h3></div>
+
         <form action="/members/login" th:object="${memberForm}" method="post">
             <div>
                 <label th:for="nickName">닉네임</label>

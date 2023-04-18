@@ -3,6 +3,7 @@ package com.project.busanHere2.controller;
 import com.project.busanHere2.domain.member.MemberDTO;
 import com.project.busanHere2.domain.review.ReviewResponse;
 import com.project.busanHere2.domain.shop.ShopForm;
+import com.project.busanHere2.service.MemberService;
 import com.project.busanHere2.service.ReviewService;
 import com.project.busanHere2.service.ShopService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -22,6 +25,9 @@ public class MainController {
 
     @Autowired
     private final ShopService shopService;
+
+//    private final MemberController memberController;
+    private final MemberService memberService;
 
     @GetMapping("/main-test")
     public String index(@SessionAttribute(name = "loginMember", required = false) MemberDTO loginMember,
@@ -35,8 +41,13 @@ public class MainController {
     }
 
     @GetMapping
-    public String indexTest(Model model) {
+    public String indexTest(Model model, HttpServletRequest request) {
         log.info("MainController - index()");
+
+        HttpSession session = request.getSession();
+        MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+        memberService.indexGet(loginMember, model);
+
         List<ShopForm> allShops = shopService.findAllShops();
         return "main/index";
     }

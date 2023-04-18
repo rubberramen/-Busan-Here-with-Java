@@ -70,7 +70,8 @@
                         <tr>
                             <th><label th:for="memberId">작성자</label> <span class="es"></span></th>
                             <td colspan="3"><input class="form-control" type="text" id="memberId" name="memberId"
-                                                   maxlength="10" placeholder="ID를 입력해 주세요."/></td>
+                                                   th:value="${memberNickName}"
+                                                   maxlength="10" placeholder="ID를 입력해 주세요." readonly/></td>
                         </tr>
 
                         <tr>

@@ -22,12 +22,33 @@
     <div class="nav-container">
         <div><h1 class="nav-title"><a href="/">"부산, 여기는" <img src="/busan,here_logo.png" style="position: absolute; width: 50px; top: 10px"/></a></h1></div>
 
-        <div>
-            <button class="nav-contact" onclick="location.href='/members/login'">Login</button>
-            <button class="nav-contact" type="button" onclick="location.href='/members/new'">Join</button>
-            <button class="nav-contact" type="button" onclick="location.href='/review/list'">Review</button>
-            <button class="nav-contact" type="button" onclick="location.href='/review/new'">Review 쓰기</button>
-        </div>
+        <th:block th:if="${loginMember == null}">
+            <div>
+                <button class="nav-contact" onclick="location.href='/members/login'">Login</button>
+                <button class="nav-contact" type="button" onclick="location.href='/members/new'">Join</button>
+                <button class="nav-contact" type="button" onclick="location.href='/review/list'">Review</button>
+<!--                <button class="nav-contact" type="button" onclick="location.href='/review/new'">Review 쓰기</button>-->
+            </div>
+        </th:block>
+
+        <th:block th:unless="${loginMember == null}">
+            <div class="header_columns">
+<!--                <button class="nav-contact" onclick="location.href='/members/login'">Login</button>-->
+<!--                <button class="nav-contact" type="button" onclick="location.href='/members/new'">Join</button>-->
+                <button class="nav-contact" type="button" onclick="location.href='/members/logout'">logout</button>
+                <button class="nav-contact" type="button" onclick="location.href='/review/list'">Review</button>
+                <button class="nav-contact" type="button" onclick="location.href='/review/new'">Review 쓰기</button>
+            </div>
+        </th:block>
+
+
+
+<!--        <div>-->
+<!--            <button class="nav-contact" onclick="location.href='/members/login'">Login</button>-->
+<!--            <button class="nav-contact" type="button" onclick="location.href='/members/new'">Join</button>-->
+<!--            <button class="nav-contact" type="button" onclick="location.href='/review/list'">Review</button>-->
+<!--            <button class="nav-contact" type="button" onclick="location.href='/review/new'">Review 쓰기</button>-->
+<!--        </div>-->
 
     </div>
 </div>
