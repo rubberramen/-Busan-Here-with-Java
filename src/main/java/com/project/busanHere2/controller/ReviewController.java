@@ -1,5 +1,6 @@
 package com.project.busanHere2.controller;
 
+import com.project.busanHere2.common.MessageDto;
 import com.project.busanHere2.domain.member.MemberDTO;
 import com.project.busanHere2.domain.review.ReviewRequest;
 import com.project.busanHere2.domain.review.ReviewResponse;
@@ -62,10 +63,18 @@ public class ReviewController {
         return "review/reviewWrite_xxx";
     }
 
-    @PostMapping("/new")
+//    @PostMapping("/new")
     public String saveReview(ReviewRequest reviewRequest) {
         reviewService.save(reviewRequest);
         return "redirect:/review/list";
+    }
+
+    @PostMapping("/new")
+    public String saveReview(ReviewRequest reviewRequest, Model model) {
+        reviewService.save(reviewRequest);
+        MessageDto message = new MessageDto("리뷰 생성이 완료되었습니다.", "/review/list",
+                RequestMethod.GET, null);
+        return showMessageAndRedirect(message, model);
     }
 
     @GetMapping("/list")
@@ -92,7 +101,7 @@ public class ReviewController {
         return "review/reviewDetail";   //reviewDetail
     }
 
-    @PostMapping("/update")
+//    @PostMapping("/update")
     public String updatePost(ReviewRequest reviewRequest, RedirectAttributes redirectAttributes) {
         reviewService.update(reviewRequest);
         Long reviewId = reviewRequest.getBoardId();
@@ -100,11 +109,37 @@ public class ReviewController {
         return "redirect:/review/{reviewId}";
     }
 
-    @PostMapping("/{boardId}")
+    @PostMapping("/update")    // TODO: 2023-04-20 020
+    public String updatePost1(ReviewRequest reviewRequest, RedirectAttributes redirectAttributes, Model model) {
+
+        reviewService.update(reviewRequest);
+        Long reviewId = reviewRequest.getBoardId();
+
+        MessageDto message = new MessageDto("리뷰가 수정되었습니다.", "/review/"+reviewId,
+                RequestMethod.GET, null);
+        redirectAttributes.addAttribute("reviewId", reviewId);
+//        return "redirect:/review/{reviewId}";
+        return showMessageAndRedirect(message, model);
+    }
+
+//    @PostMapping("/{boardId}")
     public String delete(@PathVariable Long boardId) {
-        System.out.println("boardId = " + boardId);
         reviewService.delete(boardId);
         return "redirect:/review/list";
 //        return "review/reviewList";
+    }
+
+    @PostMapping("/{boardId}")
+    public String delete(@PathVariable Long boardId, Model model) {
+        reviewService.delete(boardId);
+        MessageDto message = new MessageDto("리뷰 삭제가 완료되었습니다.", "/review/list",
+                RequestMethod.GET, null);
+//        return "redirect:/review/list";
+        return showMessageAndRedirect(message, model);
+    }
+
+    private String showMessageAndRedirect(final MessageDto params, Model model) {
+        model.addAttribute("params", params);
+        return "common/messageRedirect";
     }
 }

@@ -1,5 +1,6 @@
 package com.project.busanHere2.controller;
 
+import com.project.busanHere2.common.MessageDto;
 import com.project.busanHere2.domain.member.MemberDTO;
 import com.project.busanHere2.domain.member.MemberForm;
 import com.project.busanHere2.domain.member.MemberLoginForm;
@@ -10,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.tags.EditorAwareTag;
 
@@ -37,7 +35,7 @@ public class MemberController {
         return "members/createMemberForm";
     }
 
-    @PostMapping("/new")
+//    @PostMapping("/new")
     public String create(@Valid MemberForm form, BindingResult bindingResult, Model model) {
         log.info("POST : /new");
 
@@ -56,6 +54,28 @@ public class MemberController {
         return "redirect:/members/login";
     }
 
+    @PostMapping("/new")
+    public String create1(@Valid MemberForm form, BindingResult bindingResult, Model model) {
+        log.info("POST : /new");
+        MessageDto message = new MessageDto("회원 가입이 완료되었습니다.", "/members/login/",
+                RequestMethod.GET, null);
+
+        if (bindingResult.hasErrors()) {
+            return "members/createMemberForm";
+        }
+        try {
+            MemberForm memberForm = new MemberForm();
+            memberForm.setting(form.getName(), form.getPw(), form.getNickName(), form.getSex());
+            memberService.join(memberForm);
+
+        } catch (IllegalStateException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "members/createMemberForm";
+        }
+
+        return showMessageAndRedirect(message, model);
+    }
+
     @GetMapping("/login")
     public String loginForm(Model model) {
         log.info("GET : loginForm()");
@@ -63,7 +83,7 @@ public class MemberController {
         return "members/loginForm";
     }
 
-    @PostMapping("/login")   // TODO: 2023-04-14 014 작동하도록 
+//    @PostMapping("/login")
     public String login(MemberForm memberForm, HttpServletRequest request, RedirectAttributes rttr, Model model) {
         log.info("/members/login  <- post");
         HttpSession session = request.getSession();
@@ -92,6 +112,38 @@ public class MemberController {
         return "redirect:/";
     }
 
+
+    @PostMapping("/login")
+    public String login2(MemberForm memberForm, HttpServletRequest request, RedirectAttributes rttr, Model model) {
+        log.info("/members/login  <- post");
+        HttpSession session = request.getSession();
+
+        MessageDto message = new MessageDto("로그인이 완료되었습니다.", "/",
+                RequestMethod.GET, null);
+
+        if (memberForm.getNickName().equals("") && memberForm.getPw().equals("")) {
+            String failMessage = "닉네임과 비밀번호를 입력하지 않으셨습니다.";
+            rttr.addFlashAttribute("loginFail", failMessage);
+            return "redirect:/members/login";
+        }
+
+        MemberDTO loginMember = memberService.login(memberForm.getNickName(), memberForm.getPw());
+        System.out.println("loginMember = " + loginMember);
+
+        if (loginMember == null) {
+            String failMessage = "닉네임 혹은 비밀번호가 잘못 되었습니다.";
+            model.addAttribute("loginFail", failMessage);
+            return "members/loginForm";
+        }
+
+        session.setAttribute("loginMember", loginMember);
+//        return "redirect:/";
+//        return "redirect:/members/index";  // TODO: 2023-04-18 018
+
+        memberService.indexGet(loginMember, model);
+//        return "redirect:/";
+        return showMessageAndRedirect(message, model);
+    }
 //    @GetMapping("/index")
 //    public String indexGET(@SessionAttribute(name = "loginMember", required = false)MemberDTO loginMember, Model model) {
 //        log.info("Controller indexGET");
@@ -107,5 +159,10 @@ public class MemberController {
         session.invalidate();
 
         return "redirect:/";
+    }
+
+    private String showMessageAndRedirect(final MessageDto params, Model model) {
+        model.addAttribute("params", params);
+        return "common/messageRedirect";
     }
 }

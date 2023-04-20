@@ -26,6 +26,8 @@
             <h4>⚓회원 가입</h4>
         </div>
 
+        <div></div>
+
         <div class="container">
 
             <form id="saveForm" role="form" action="/members/new" th:object="${memberForm}" method="post">
@@ -42,8 +44,7 @@
                 <div>
                     <label th:for="nickName">닉네임</label>
                     <input class="form-control" type="text" th:field="*{nickName}" placeholder="닉네임을 입력하세요.">
-                    <p th:if="${#fields.hasErrors('nickName')}" th:errors="*{nickName}" class="fieldError">Incorrect
-                        data</p>
+                    <p th:if="${#fields.hasErrors('nickName')}" th:errors="*{nickName}" class="fieldError">Incorrect data</p>
                 </div>
                 <div>
                     <label th:for="sex">성별</label>
