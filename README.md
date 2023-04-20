@@ -33,7 +33,7 @@
   - Front : HTML5, JavaScript(ES5), CSS3, Library : axios
   - Back : Java11, Spring Boot 2.7.9, MyBatis
 
-### 4. 기능
+### 3. 기능
 - 회원 가입 : 회원 가입, 로그인
 - 리뷰 작성  : 본인이 다녀온 식당 리뷰
 - 카테고리 : 카테고리 클릭, 선택 시 해당 식당, 명소들이 카카오 맵에 핀으로 표시
@@ -42,11 +42,11 @@
 - AWS 서버 구축을 통한 서비스(예정)
 
 
-### 5. UI 샘플
+### 4. UI 샘플
 #### - Test UI
 <img width="644" alt="20230416135446" src="https://user-images.githubusercontent.com/96553431/232269778-48035d0b-79cf-4048-8d46-365f435b7fd6.png">
 
-### 6. 애로사항
+### 5. 애로사항
 - Front
   - HTML, CSS, Jquery, ajax 활용 노하우
   - 디자인적 적용 방안 및 연구 필요
