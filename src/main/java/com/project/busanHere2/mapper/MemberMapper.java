@@ -14,4 +14,6 @@ public interface MemberMapper {
     List<MemberDTO> findAllMembers();
 
     MemberDTO findByNickName(String nickName);
+
+    List<String> printAllNickNames();
 }

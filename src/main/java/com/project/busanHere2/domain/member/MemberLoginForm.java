@@ -13,18 +13,10 @@ import javax.validation.constraints.NotEmpty;
 @ToString
 public class MemberLoginForm {
 
-    private String name;
-
+    @NotEmpty(message = "비밀번호는 필수 입력 값입니다.")
     private String pw;
 
+    @NotEmpty(message = "닉네임은 필수 입력 값입니다.")
     private String nickName;
 
-    private String sex;  //Sex
-
-    public void setting(String name, String pw, String nickName, String sex) {
-        this.name = name;
-        this.pw = pw;
-        this.nickName = nickName;
-        this.sex = sex;
-    }
 }

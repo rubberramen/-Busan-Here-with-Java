@@ -37,6 +37,11 @@ public class MemberService {
 
     public MemberDTO login(String nickName, String pw) {
         MemberDTO member = memberMapper.findByNickName(nickName);
+
+        if (member == null) {
+            return null;
+        }
+
         if (member.getPasswd().equals(pw)) {
             return member;
         } else {
@@ -46,5 +51,9 @@ public class MemberService {
 
     public void indexGet(@SessionAttribute(name = "loginMember", required = false) MemberDTO loginMember, Model model) {
         model.addAttribute("loginMember", loginMember);
+    }
+
+    public List<String> printAllNickNames() {
+        return memberMapper.printAllNickNames();
     }
 }

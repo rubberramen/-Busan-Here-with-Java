@@ -27,15 +27,17 @@
 
         <div class="field-error" th:if="${not #strings.isEmpty(loginFail)}" th:text="${loginFail}"><h3 > 실패 메시지 </h3></div>
 
-        <form action="/members/login" th:object="${memberForm}" method="post">
+        <form action="/members/login" th:object="${memberLoginForm}" method="post">
             <div>
                 <label th:for="nickName">닉네임</label>
                 <input class="form-control" type="text" th:field="*{nickName}" placeholder="닉네임을 입력하세요">
+                <p th:if="${#fields.hasErrors('nickName')}" th:errors="*{nickName}" class="fieldError">Incorrect data</p>
             </div>
 
             <div>
                 <label th:for="pw">비밀번호</label>
                 <input class="form-control" type="password" th:field="*{pw}" placeholder="비밀번호를 입력하세요">
+                <p th:if="${#fields.hasErrors('pw')}" th:errors="*{pw}" class="fieldError">Incorrect data</p>
             </div>
 
             <hr class="my-4">

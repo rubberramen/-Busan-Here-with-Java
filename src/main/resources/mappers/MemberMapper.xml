@@ -31,4 +31,10 @@
                 nick_name = #{nickName}
     </select>
 
+    <select id="printAllNickNames" resultType="String">
+        SELECT nick_name
+        FROM
+        MEMBERS
+    </select>
+
 </mapper>
