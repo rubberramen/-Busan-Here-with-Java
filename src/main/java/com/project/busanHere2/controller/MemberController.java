@@ -59,20 +59,15 @@ public class MemberController {
         log.info("POST : /new");
         MessageDto message = new MessageDto("회원 가입이 완료되었습니다.", "/members/login/",
                 RequestMethod.GET, null);
-
         if (bindingResult.hasErrors()) {
             return "members/createMemberForm";
         }
         try {
-            MemberForm memberForm = new MemberForm();
-            memberForm.setting(form.getName(), form.getPw(), form.getNickName(), form.getSex());
-            memberService.join(memberForm);
-
+            memberService.join(form);
         } catch (IllegalStateException e) {
             model.addAttribute("errorMessage", e.getMessage());
             return "members/createMemberForm";
         }
-
         return showMessageAndRedirect(message, model);
     }
 

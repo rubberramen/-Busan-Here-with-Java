@@ -26,7 +26,9 @@
             <h4>⚓회원 가입</h4>
         </div>
 
-        <div></div>
+        <div>
+            <p th:if="${errorMessage}" class="field-error" th:text="${errorMessage}"></p>
+        </div>
 
         <div class="container">
 
