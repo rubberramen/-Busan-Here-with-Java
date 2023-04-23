@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments2/header :: main-head"></head>
+<head th:replace="template/fragments/main-header :: main-head"></head>
 <body>
 <form th:if="${not #maps.isEmpty( params.data )}"
       id="redirectForm" th:action="${params.redirectUri}"

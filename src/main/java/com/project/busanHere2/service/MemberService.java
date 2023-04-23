@@ -44,12 +44,14 @@ public class MemberService {
 
         if (member.getPasswd().equals(pw)) {
             return member;
-        } else {
-            return null;
         }
+
+        return null;
+
     }
 
-    public void indexGet(@SessionAttribute(name = "loginMember", required = false) MemberDTO loginMember, Model model) {
+    public void indexGet(@SessionAttribute(name = "loginMember", required = false) MemberDTO loginMember,
+                         Model model) {
         model.addAttribute("loginMember", loginMember);
     }
 

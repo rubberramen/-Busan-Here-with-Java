@@ -25,29 +25,23 @@ public class MainController {
 
     @Autowired
     private final ShopService shopService;
-
-//    private final MemberController memberController;
     private final MemberService memberService;
 
     @GetMapping("/main-test")
     public String index(@SessionAttribute(name = "loginMember", required = false) MemberDTO loginMember,
                         Model model) {
         log.info("MainController - index()");
-
         List<ShopForm> allShops = shopService.findAllShops();
-
         model.addAttribute("loginMember", loginMember);
         return "main/index-test";
     }
 
     @GetMapping
-    public String indexTest(Model model, HttpServletRequest request) {
-        log.info("MainController - index()");
+    public String indexTest(@SessionAttribute(name = "loginMember", required = false) MemberDTO loginMember,
+                            Model model) {
+        log.info("MainController - index()ㅋㅋㅋㅋㅋㅋ");
 
-        HttpSession session = request.getSession();
-        MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
-        memberService.indexGet(loginMember, model);
-
+        model.addAttribute("loginMember", loginMember);
         List<ShopForm> allShops = shopService.findAllShops();
         return "main/index";
     }

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/header :: header">
+<head th:replace="template/fragments/header :: header">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 
 <body>
 
-<div th:replace="fragments/bodyHeader :: bodyHeader"/>
+<div th:replace="template/fragments/header :: bodyHeader"/>
 
 <main>
 
@@ -15,7 +15,7 @@
 
 
 <div class="inner">
-    <div th:replace="fragments/footer :: footer"/>
+    <div th:replace="template/fragments/header :: footer"/>
 </div>
 
 

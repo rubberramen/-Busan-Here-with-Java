@@ -1,24 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<body>
-
-<footer th:fragment="footer1">
-    푸터 자리 입니다.🧨
-</footer>
-
-<footer th:fragment="footer2 (param1, param2)">
-    <p>파라미터 자리 입니다.</p>
-    <p th:text="${param1}"></p>
-    <p th:text="${param2}"></p>
-</footer>
-
-<footer>
-    <div class="footer" th:fragment="footerMain">
-        <p>
-            <h1 class="nav-contact" ><a href="/">&copy; "Busan, here"⚓</a></h1>
-        </p>
-    </div>
-</footer>
-
-</body>
-</html>
+<div class="footer" th:fragment="footer">
+    <p>
+        <h1 class="nav-contact" ><a href="/">&copy; "Busan, here"⚓</a></h1>
+    </p>
+</div>
