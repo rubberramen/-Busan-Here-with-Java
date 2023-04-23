@@ -5,22 +5,22 @@
     <title>⚓리뷰</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/style.css}" />
+
 </head>
 <body>
 
 <content>
-    <div class="container">
 
         <div class="py-3 text-center">
             <h4>⚓리뷰</h4>
         </div>
 
-
+    <div class="container">
         <div class="content">
             <div class="inner">
                 <p>
                 <th:block th:if="${loginMember}">
-                    <a class ="inner" href="/review/new">리뷰 쓰기⚓</a>
+                    <a class ="nav-contact" href="/review/new">🍴리뷰 쓰기</a>
                 </th:block>
                 </p>
             </div>
