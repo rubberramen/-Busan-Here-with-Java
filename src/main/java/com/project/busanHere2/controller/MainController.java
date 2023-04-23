@@ -27,20 +27,10 @@ public class MainController {
     private final ShopService shopService;
     private final MemberService memberService;
 
-    @GetMapping("/main-test")
-    public String index(@SessionAttribute(name = "loginMember", required = false) MemberDTO loginMember,
-                        Model model) {
-        log.info("MainController - index()");
-        List<ShopForm> allShops = shopService.findAllShops();
-        model.addAttribute("loginMember", loginMember);
-        return "main/index-test";
-    }
-
     @GetMapping
-    public String indexTest(@SessionAttribute(name = "loginMember", required = false) MemberDTO loginMember,
+    public String index(@SessionAttribute(name = "loginMember", required = false) MemberDTO loginMember,
                             Model model) {
-        log.info("MainController - index()ㅋㅋㅋㅋㅋㅋ");
-
+        log.info("MainController - GET- index()");
         model.addAttribute("loginMember", loginMember);
         List<ShopForm> allShops = shopService.findAllShops();
         return "main/index";
