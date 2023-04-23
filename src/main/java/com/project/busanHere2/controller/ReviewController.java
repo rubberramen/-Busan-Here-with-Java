@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -27,46 +26,36 @@ public class ReviewController {
 
     private final ReviewService reviewService;
     private final ShopService shopService;
-    //    private final MemberController memberController;
     private final MemberService memberService;
 
-    @GetMapping("/new")
-    public String reviewWriteForm(@RequestParam(value = "boardId", required = false) final Long boardId,
-                                  Model model, HttpServletRequest request) {
+    @GetMapping("/list")
+    public String reviewList(@SessionAttribute(name = "loginMember", required = false) MemberDTO loginMember,
+                             Model model, HttpServletRequest request) {
 
-        HttpSession session = request.getSession();
-        MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+        model.addAttribute("loginMember", loginMember);
+
+        List<ReviewResponse> posts = reviewService.findAll();
+        model.addAttribute("posts", posts);
+        return "review/reviewList";
+    }
+
+
+    @GetMapping("/new")
+    public String reviewWriteForm(@SessionAttribute(name = "loginMember", required = false) MemberDTO loginMember,
+                                  @RequestParam(value = "boardId", required = false) final Long boardId,
+                                  Model model) {
+
         model.addAttribute("memberId", loginMember.getMemberId());
         model.addAttribute("memberNickName", loginMember.getNickName());
 
-
         if (boardId != null) {
             ReviewResponse post = reviewService.findById(boardId);
             model.addAttribute("post", post);
         }
         List<ShopForm> allShops = shopService.findAllShops();
         model.addAttribute("allShops", allShops);
-        memberService.indexGet(loginMember, model);
+        model.addAttribute("loginMember", loginMember);
         return "review/reviewWrite";
-//        return "review/reviewWrite-sample";
-    }
-
-    @GetMapping("/newTest")
-    public String reviewWriteFormTest(@RequestParam(value = "boardId", required = false) final Long boardId, Model model) {
-        if (boardId != null) {
-            ReviewResponse post = reviewService.findById(boardId);
-            model.addAttribute("post", post);
-        }
-        List<ShopForm> allShops = shopService.findAllShops();
-        model.addAttribute("allShops", allShops);
-//        return "review/reviewWrite";
-        return "review/reviewWrite_xxx";
-    }
-
-//    @PostMapping("/new")
-    public String saveReview(ReviewRequest reviewRequest) {
-        reviewService.save(reviewRequest);
-        return "redirect:/review/list";
     }
 
     @PostMapping("/new")
@@ -77,36 +66,14 @@ public class ReviewController {
         return showMessageAndRedirect(message, model);
     }
 
-    @GetMapping("/list")
-    public String reviewList(Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-
-        MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
-        if (loginMember != null) {
-            System.out.println("loginMember.toString() = " + loginMember.toString());
-//            session.setAttribute("loginMember", loginMember);
-        }
-        memberService.indexGet(loginMember, model);
-
-        List<ReviewResponse> posts = reviewService.findAll();
-        model.addAttribute("posts", posts);
-        return "review/reviewList";
-    }
-
     @GetMapping("/{boardId}")
-    public String reviewDetail(@PathVariable Long boardId, Model model) {
+    public String reviewDetail(@SessionAttribute(name = "loginMember", required = false) MemberDTO loginMember,
+                               @PathVariable Long boardId, Model model) {
         ReviewResponse post = reviewService.findById(boardId);
         model.addAttribute("post", post);
+        model.addAttribute("loginMember", loginMember);
 
         return "review/reviewDetail";   //reviewDetail
-    }
-
-//    @PostMapping("/update")
-    public String updatePost(ReviewRequest reviewRequest, RedirectAttributes redirectAttributes) {
-        reviewService.update(reviewRequest);
-        Long reviewId = reviewRequest.getBoardId();
-        redirectAttributes.addAttribute("reviewId", reviewId);
-        return "redirect:/review/{reviewId}";
     }
 
     @PostMapping("/update")    // TODO: 2023-04-20 020
@@ -117,16 +84,7 @@ public class ReviewController {
 
         MessageDto message = new MessageDto("리뷰가 수정되었습니다.", "/review/"+reviewId,
                 RequestMethod.GET, null);
-        redirectAttributes.addAttribute("reviewId", reviewId);
-//        return "redirect:/review/{reviewId}";
         return showMessageAndRedirect(message, model);
-    }
-
-//    @PostMapping("/{boardId}")
-    public String delete(@PathVariable Long boardId) {
-        reviewService.delete(boardId);
-        return "redirect:/review/list";
-//        return "review/reviewList";
     }
 
     @PostMapping("/{boardId}")

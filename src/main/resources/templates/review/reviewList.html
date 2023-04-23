@@ -15,12 +15,16 @@
             <h4>⚓리뷰</h4>
         </div>
 
-        <div>
-            <button type="button" class="btn btn-link btn-lg" th:onclick="|location.href='@{/review/new}'|">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;리뷰 쓰기⚓</button>
-        </div>
 
         <div class="content">
+            <div class="inner">
+                <p>
+                <th:block th:if="${loginMember}">
+                    <a class ="inner" href="/review/new">리뷰 쓰기⚓</a>
+                </th:block>
+                </p>
+            </div>
+
             <section>
                 <!--/* 검색 */-->
                 <!--            <div class="search_box inner">-->
