@@ -30,7 +30,6 @@ public class MainController {
     @GetMapping
     public String index(@SessionAttribute(name = "loginMember", required = false) MemberDTO loginMember,
                             Model model) {
-        log.info("MainController - GET- index()");
         model.addAttribute("loginMember", loginMember);
         List<ShopForm> allShops = shopService.findAllShops();
         return "main/index";

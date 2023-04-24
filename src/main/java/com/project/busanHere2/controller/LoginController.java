@@ -12,7 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,7 +26,7 @@ public class LoginController {
 
     @GetMapping("/members/login")
     public String login(Model model) {
-        log.info("LoginController - GET - login()");
+
         model.addAttribute("memberLoginForm", new MemberLoginForm());
         return "members/loginForm";
     }
@@ -35,8 +34,6 @@ public class LoginController {
     @PostMapping("members/login")
     public String login(@Valid MemberLoginForm memberForm, BindingResult bindingResult,
                          HttpServletRequest request, Model model) {
-
-        log.info("LoginController - POST : login()");
 
         if (bindingResult.hasErrors()) {
             return "members/loginForm";
@@ -61,8 +58,6 @@ public class LoginController {
 
     @GetMapping(value = "members/logout")
     public String logout(HttpServletRequest request) {
-
-        log.info("LoginController - POST : logout()");
 
         HttpSession session = request.getSession(false);
         session.invalidate();

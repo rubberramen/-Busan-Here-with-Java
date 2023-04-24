@@ -27,14 +27,12 @@ public class MemberController {
 
     @GetMapping("/new")
     public String addMember(Model model) {
-        log.info("MemberController - GET - addMember");
         model.addAttribute("memberForm", new MemberForm());
         return "members/createMemberForm";
     }
 
     @PostMapping("/new")
     public String addMember(@Valid MemberForm form, BindingResult bindingResult, Model model) {
-        log.info("MemberController - POST - addMember");
         MessageDto message = new MessageDto("회원 가입이 완료되었습니다.", "/members/login/",
                 RequestMethod.GET, null);
         if (bindingResult.hasErrors()) {
