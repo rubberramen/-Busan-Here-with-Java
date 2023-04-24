@@ -38,3 +38,4 @@ out/
 
 ### application.properties ###
 *.properties
+logback-spring.xml
