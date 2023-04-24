@@ -94,6 +94,7 @@ function getContent(data) {
     replaceUrl = replaceUrl.replace("https://youtu.be/", "");
     replaceUrl = replaceUrl.replace("https://www.youtube.com/embed/", "");
     replaceUrl = replaceUrl.replace("https://www.youtube.com/watch?v=", "");
+    replaceUrl = replaceUrl.replace("https://www.youtube.com/shorts/", "");
     finUrl = replaceUrl.split("&")[0];
 
     // 인포윈도우 가공하기
