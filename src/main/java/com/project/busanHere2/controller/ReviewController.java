@@ -32,6 +32,8 @@ public class ReviewController {
     public String reviewList(@SessionAttribute(name = "loginMember", required = false) MemberDTO loginMember,
                              Model model, HttpServletRequest request) {
 
+        log.info("ReviewController - GET : reviewList()");
+
         model.addAttribute("loginMember", loginMember);
 
         List<ReviewResponse> posts = reviewService.findAll();
@@ -41,9 +43,11 @@ public class ReviewController {
 
 
     @GetMapping("/new")
-    public String reviewWriteForm(@SessionAttribute(name = "loginMember", required = false) MemberDTO loginMember,
+    public String reviewWrite(@SessionAttribute(name = "loginMember", required = false) MemberDTO loginMember,
                                   @RequestParam(value = "boardId", required = false) final Long boardId,
                                   Model model) {
+
+        log.info("ReviewController - GET : reviewWrite()");
 
         model.addAttribute("memberId", loginMember.getMemberId());
         model.addAttribute("memberNickName", loginMember.getNickName());
@@ -60,6 +64,9 @@ public class ReviewController {
 
     @PostMapping("/new")
     public String saveReview(ReviewRequest reviewRequest, Model model) {
+
+        log.info("ReviewController - POST : saveReview()");
+
         reviewService.save(reviewRequest);
         MessageDto message = new MessageDto("리뷰 생성이 완료되었습니다.", "/review/list",
                 RequestMethod.GET, null);
@@ -69,6 +76,9 @@ public class ReviewController {
     @GetMapping("/{boardId}")
     public String reviewDetail(@SessionAttribute(name = "loginMember", required = false) MemberDTO loginMember,
                                @PathVariable Long boardId, Model model) {
+
+        log.info("ReviewController - GET : reviewDetail()");
+
         ReviewResponse post = reviewService.findById(boardId);
         model.addAttribute("post", post);
         model.addAttribute("loginMember", loginMember);
@@ -77,7 +87,9 @@ public class ReviewController {
     }
 
     @PostMapping("/update")    // TODO: 2023-04-20 020
-    public String updatePost1(ReviewRequest reviewRequest, RedirectAttributes redirectAttributes, Model model) {
+    public String updatePost(ReviewRequest reviewRequest, RedirectAttributes redirectAttributes, Model model) {
+
+        log.info("ReviewController - POST : updatePost()");
 
         reviewService.update(reviewRequest);
         Long reviewId = reviewRequest.getBoardId();
@@ -90,6 +102,9 @@ public class ReviewController {
     @PostMapping("/{boardId}")
     public String delete(@PathVariable Long boardId, Model model) {
         reviewService.delete(boardId);
+
+        log.info("ReviewController - POST : delete()");
+
         MessageDto message = new MessageDto("리뷰 삭제가 완료되었습니다.", "/review/list",
                 RequestMethod.GET, null);
 //        return "redirect:/review/list";
