@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/review")
@@ -90,7 +91,13 @@ public class ReviewController {
 
         ReviewResponse post = reviewService.findById(boardId);
         model.addAttribute("post", post);
-        model.addAttribute("loginMember", loginMember);
+
+        if (loginMember != null) {
+            if (Objects.equals(post.getMemberId(), loginMember.getMemberId())) {
+                model.addAttribute("loginMember", loginMember);
+                String a = "";
+            }
+        }
 
         return "review/reviewDetail";   //reviewDetail
     }

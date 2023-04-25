@@ -125,6 +125,10 @@
      color: #bd2130;
     }
 
+   .optionRed {
+         color: #bd2130;
+    }
+
     /* paging ------------------------------- */
     .paging * {box-sizing:border-box;}
     .paging {text-align:center; margin:2% 0 0;}

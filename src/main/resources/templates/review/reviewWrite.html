@@ -5,7 +5,7 @@
     <title>⚓리뷰 작성</title>
     <!--    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">-->
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 
 </head>
 
@@ -18,6 +18,7 @@
         border-color: #dc3545;
         color: #dc3545;
         }
+
 </style>
 
 <body>
@@ -63,9 +64,10 @@
 
                         <tr>
                             <th><label th:for="memberNickName">작성자</label> <span class="es"></span></th>
-                            <td colspan="3"><input class="form-control" type="text" id="memberNickName" name="memberNickName"
-                                                   th:value="${memberNickName}"
-                                                   maxlength="10" placeholder="닉네임을 입력해 주세요." readonly/></td>
+                            <td colspan="3">
+                                <input class="form-control" type="text" id="memberNickName" name="memberNickName"
+                                       th:value="${memberNickName}"
+                                       maxlength="10" placeholder="닉네임을 입력해 주세요." readonly/></td>
                         </tr>
 
                         <tr>
@@ -73,8 +75,8 @@
                             <td colspan="3">
                                 <!--                            <input type="text" id="shopId" name="shopId" maxlength="10" placeholder="이름을 입력해 주세요." />-->
                                 <!--                            <select id="shopId" name="shopId" th:field="*{shopId}">-->
-                                <select class="form-control" id="shopId" name="shopId">
-                                    <option value="">식당 🍽️ 선택</option>
+                                <select class="form-control optionRed" id="shopId" name="shopId">
+                                    <option style="color:#A744DE" value="">식당 🍽️ 선택</option>
                                     <option th:each="shop : ${allShops}" th:value="${shop?.shopId}"
                                             th:utext="${shop?.name}">식당
                                     </option>
@@ -175,6 +177,7 @@
             }
 
         /*]]>*/
+
     </script>
 </content>
 </body>
