@@ -33,6 +33,9 @@
                         <when test="'memberNickName'.equals( searchType )">
                             AND m.nick_name LIKE CONCAT('%', #{keyword}, '%')
                         </when>
+                        <when test="'shop'.equals( searchType )">
+                            AND s.name LIKE CONCAT('%', #{keyword}, '%')
+                        </when>
                     </choose>
                 </when>
 
@@ -141,6 +144,8 @@
             review_board rb
         join members m
             on rb.member_id = m.member_id
+        join shops s
+            on rb.shop_id = s.shop_id
         WHERE
             delete_yn = 0
         <include refid="search" />

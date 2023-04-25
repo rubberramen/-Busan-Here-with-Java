@@ -4,109 +4,82 @@
 <head>
     <title>⚓리뷰</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 
 </head>
 <body>
 
 <content>
 
-        <div class="py-3 text-center">
-            <h4>⚓리뷰</h4>
-        </div>
+    <div class="py-3 text-center">
+        <h4>⚓리뷰</h4>
+    </div>
 
     <div class="container">
         <div class="content">
             <div class="inner row">
                 <p>
-                <th:block th:if="${loginMember}">
-                    <a class ="nav-contact" href="/review/new">🍴리뷰 쓰기</a>
-                </th:block>
+                    <th:block th:if="${loginMember}">
+                        <a class="nav-contact" href="/review/new">🍴리뷰 쓰기</a>
+                    </th:block>
                 </p>
-
-<!--                <div class="search_box">-->
-<!--                    <form id="searchForm" onsubmit="return false;" autocomplete="off">-->
-<!--                        <div class="sch_group fl">-->
-<!--                            <select id="searchType" name="searchType" title="검색 유형 선택">-->
-<!--                                <option value="">전체 검색</option>-->
-<!--                                <option value="title">제목</option>-->
-<!--                                <option value="content">내용</option>-->
-<!--                                <option value="memberNickName">작성자</option>-->
-<!--                            </select>-->
-<!--                            <input type="text" id="keyword" name="keyword" placeholder="키워드를 입력해 주세요." title="키워드 입력" />-->
-<!--                            <button type="button" class="bt_search" onclick="movePage(1);"><i class="fas fa-search"></i><span class="skip_info">검색</span></button>-->
-<!--                        </div>-->
-<!--                    </form>-->
-<!--                </div>-->
 
             </div>
 
             <section>
-<!--                /* 검색 */-->
-<!--                <div class="search_box">-->
-<!--                    <form id="searchForm" onsubmit="return false;" autocomplete="off">-->
-<!--                        <div class="sch_group fl">-->
-<!--                            <select id="searchType" name="searchType" title="검색 유형 선택">-->
-<!--                                <option value="">전체 검색</option>-->
-<!--                                <option value="title">제목</option>-->
-<!--                                <option value="content">내용</option>-->
-<!--                                <option value="memberNickName">작성자</option>-->
-<!--                            </select>-->
-<!--                            <input type="text" id="keyword" name="keyword" placeholder="키워드를 입력해 주세요." title="키워드 입력" />-->
-<!--                            <button type="button" class="bt_search" onclick="movePage(1);"><i class="fas fa-search"></i><span class="skip_info">검색</span></button>-->
-<!--                        </div>-->
-<!--                    </form>-->
-<!--                </div>-->
-
                 <div class="inner">
-
-                                    <div class="search_box">
-                                        <form id="searchForm" onsubmit="return false;" autocomplete="off">
-                                            <div class="sch_group fl">
-                                                <select id="searchType" name="searchType" title="검색 유형 선택">
-                                                    <option value="">전체 검색</option>
-                                                    <option value="title">제목</option>
-                                                    <option value="content">내용</option>
-                                                    <option value="memberNickName">작성자</option>
-                                                </select>
-                                                <input type="text" id="keyword" name="keyword" placeholder="키워드를 입력해 주세요." title="키워드 입력" />
-                                                <button type="button" class="bt_search" onclick="movePage(1);"><i class="fas fa-search"></i><span class="skip_info">검색</span></button>
-                                            </div>
-                                        </form>
-                                    </div>
+<!--                    검색-->
+                    <div class="search_box">
+                        <form id="searchForm" onsubmit="return false;" autocomplete="off">
+                            <div class="sch_group fl">
+                                <select id="searchType" name="searchType" title="검색 유형 선택">
+                                    <option value="">전체 검색</option>
+                                    <option value="title">제목</option>
+                                    <option value="content">내용</option>
+                                    <option value="memberNickName">작성자</option>
+                                    <option value="shop">식당</option>
+                                </select>
+                                <input type="text" id="keyword" name="keyword" placeholder="키워드를 입력해 주세요."
+                                       title="키워드 입력"/>
+                                <button type="button" class="bt_search" onclick="movePage(1);"><i
+                                        class="fas fa-search"></i><span class="skip_info">검색</span></button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <!--/* 리스트 */-->
                 <div class="table inner">
                     <table class="tb tb_col table">
                         <colgroup>
-                            <col style="width:60px;"/>
-                            <col style="width:auto;"/>
-                            <col style="width:10%;"/>
+                            <!--                            <col style="width:60px;"/>-->
                             <col style="width:auto%;"/>
+                            <col style="width:10%;"/>
+                            <col style="width:20%;"/>
                             <col style="width:15%;"/>
-                            <col style="width:70px;"/>
+<!--                            <col style="width:70px;"/>-->
                         </colgroup>
                         <thead>
                         <tr class="table-primary">
                             <!--                <th scope="col"><input type="checkbox"/></th>-->
-                            <th scope="col">#</th>
+                            <!--                            <th scope="col">#</th>-->
                             <th scope="col">제목</th>
                             <th scope="col">작성자</th>
                             <th scope="col">식당</th>
                             <th scope="col">등록일</th>
-                            <th scope="col">조회</th>
+<!--                            <th scope="col">조회</th>-->
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:if="${not #lists.isEmpty( response )}" th:each="row, status : ${response.list}">
                             <!--                <td><input type="checkbox"/></td>-->
                             <!--                        <td th:text="${row.noticeYn == false ? (status.size - status.index) : '공지'}"></td>-->
-                            <td><a th:href="@{|/review/${row.boardId}|}" th:text="${row.boardId}"></a></td>
+                            <!--                            <td><a th:href="@{|/review/${row.boardId}|}" th:text="${row.boardId}"></a></td>-->
+                            <!--                            <td><a th:href="@{|/review/${row.boardId}|}" th:text="${status.size - status.count + 1}"></a></td>-->
                             <td class="tl"><a th:href="@{|/review/${row.boardId}|}" th:text="${row.title}"></a></td>
                             <td th:text="${row.nickName}"></td>
                             <td th:text="${row.shopName}"></td>
                             <td th:text="${#temporals.format( row.createdAt, 'yyyy-MM-dd' )}"></td>
-                            <td th:text="${row.viewCnt}"></td>
+<!--                            <td th:text="${row.viewCnt}"></td>-->
                         </tr>
 
                         <tr th:unless="${not #lists.isEmpty( response )}">
@@ -118,12 +91,12 @@
                     </table>
                 </div>
 
-<!--                /* 페이지네이션 */-->
-<!--                <div class="paging inner">-->
-<!--                    <a href="#" class="page_bt first">첫 페이지</a><a href="#" class="page_bt prev">이전 페이지 그룹</a>-->
-<!--                    <p><span class="on">1</span><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a><a href="#">8</a><a href="#">9</a><a href="#">10</a></p>-->
-<!--                    <a href="#" class="page_bt next">다음 페이지 그룹</a><a href="#" class="page_bt last">마지막 페이지</a>-->
-<!--                </div>-->
+                <!--                /* 페이지네이션 */-->
+                <!--                <div class="paging inner">-->
+                <!--                    <a href="#" class="page_bt first">첫 페이지</a><a href="#" class="page_bt prev">이전 페이지 그룹</a>-->
+                <!--                    <p><span class="on">1</span><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a><a href="#">8</a><a href="#">9</a><a href="#">10</a></p>-->
+                <!--                    <a href="#" class="page_bt next">다음 페이지 그룹</a><a href="#" class="page_bt last">마지막 페이지</a>-->
+                <!--                </div>-->
                 <!--/* 페이지네이션 렌더링 영역 */-->
                 <div class="paging">
 
@@ -260,7 +233,8 @@
 
 
         /*]]>*/
-        </script>
+
+    </script>
 </content>
 
 </body>

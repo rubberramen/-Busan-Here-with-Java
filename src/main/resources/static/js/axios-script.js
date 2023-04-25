@@ -109,7 +109,7 @@ function getContent(data) {
       <div class="infowindow-body">
         <h5 class="infowindow-name">${data.name}</h5>
         <p class="infowindow-address">${data.address}</p>
-        <a href="${data.videoUrl}" class="infowindow-btn" target="_blank">영상이동</a>
+        <a href="${data.videoUrl}" class="infowindow-btn" target="_blank" style="color: rgb(250, 0, 0)">[영상이동]</a>
       </div>
     </div>
   `;
