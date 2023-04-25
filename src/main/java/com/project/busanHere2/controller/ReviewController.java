@@ -75,7 +75,7 @@ public class ReviewController {
         return "review/reviewWrite";
     }
 
-    @PostMapping("/new")    // TODO: 2023-04-25 025
+    @PostMapping("/new")
     public String saveReview(@SessionAttribute(name = "loginMember", required = false) MemberDTO loginMember,
                              ReviewRequest reviewRequest, Model model) {
 
@@ -99,10 +99,11 @@ public class ReviewController {
             }
         }
 
+        reviewService.addViewCnt(boardId);
         return "review/reviewDetail";   //reviewDetail
     }
 
-    @PostMapping("/update")    // TODO: 2023-04-20 020
+    @PostMapping("/update")
     public String updatePost(ReviewRequest reviewRequest, RedirectAttributes redirectAttributes, Model model) {
 
         reviewService.update(reviewRequest);

@@ -6,6 +6,7 @@ import com.project.busanHere2.domain.review.ReviewResponse;
 import com.project.busanHere2.domain.review.ReviewResponse2;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Mapper
@@ -32,7 +33,7 @@ public interface ReviewMapper {
     int count(SearchDto searchDto);
     int count2(SearchDto searchDto);
 
-
-    ///////////////////////
     List<ReviewResponse2> findAll2(SearchDto searchDto);
+
+    void updateViewCnt(HashMap<String, String> map);
 }

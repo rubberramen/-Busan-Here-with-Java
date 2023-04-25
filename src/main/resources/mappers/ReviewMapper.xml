@@ -90,6 +90,14 @@
             board_id = #{boardId}
     </update>
 
+    <update id="updateViewCnt" parameterType="Map">
+        update review_board
+        set
+            view_cnt = #{viewCnt}
+        where
+            board_id = #{boardId}
+    </update>
+
     <delete id="deleteById" parameterType="Long">
         UPDATE review_board
         SET

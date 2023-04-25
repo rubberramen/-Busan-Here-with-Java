@@ -11,7 +11,6 @@
         .table-striped>tbody>tr:nth-child(odd)>th {
          background-color: red; // Choose your own color here
  }
-
     </style>
 
 </head>
@@ -38,8 +37,6 @@
 
                         <th scope="row">제목</th>
                         <td colspan="3">[[ ${post.title} ]]</td>
-                        <!--                        <th scope="row">글 유형</th>-->
-                        <!--                        <td th:text="${post.noticeYn == false ? '일반' : '공지'}"></td>-->
                     </tr>
 
                     <tr>
@@ -54,7 +51,7 @@
                         <td th:text="${#temporals.format( post.createdAt, 'yyyy-MM-dd HH:mm' )}"></td>
 
                         <th scope="row">조회</th>
-                        <td colspan="3">[[ ${post.viewCnt} ]]</td>
+                        <td colspan="3">[[ ${post.viewCnt + 1} ]]</td>
                     </tr>
                     <tr height="200">
                         <th scope="row">내용</th>
@@ -62,11 +59,6 @@
                     </tr>
                     </tbody>
                 </table>
-                <!--                <p class="btn_set">-->
-                <!--                    <a th:href="@{/review/new( boardId=${post.boardId} )}" class="btns btn_bdr4 btn_mid">수정</a>-->
-                <!--                    <button type="button" onclick="deletePost();" class="btns btn_bdr1 btn_mid">삭제</button>-->
-                <!--                    <a th:href="@{/review/list}" class="btns btn_bdr3 btn_mid">목록</a>-->
-                <!--                </p>-->
 
                 <div>
                     <button th:if="${loginMember}" type="button" class="btn btn-info"
@@ -116,7 +108,6 @@
             }
 
         /*]]>*/
-
 
     </script>
 </content>

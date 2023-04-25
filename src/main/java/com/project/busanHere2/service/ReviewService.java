@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -41,10 +43,6 @@ public class ReviewService {
         return boardId;
     }
 
-//    public List<ReviewResponse> findAll(SearchDto searchDto) {
-//        return reviewMapper.findAll(searchDto);
-//    }
-
     public PagingResponse<ReviewResponse> findAll(SearchDto searchDto) {
         int count = reviewMapper.count(searchDto);
         if (count < 1) {
@@ -67,5 +65,14 @@ public class ReviewService {
 
         List<ReviewResponse2> list = reviewMapper.findAll2(searchDto);
         return new PagingResponse<>(list, pagination);
+    }
+
+    public void addViewCnt(Long baordId) {
+        ReviewResponse review = reviewMapper.findById(baordId);
+        int viewCnt = review.getViewCnt();
+        HashMap<String, String> map = new HashMap<>();
+        map.put("boardId", String.valueOf(baordId));
+        map.put("viewCnt", String.valueOf(++viewCnt));
+        reviewMapper.updateViewCnt(map);
     }
 }
