@@ -1,6 +1,6 @@
 package com.project.busanHere2.controller;
 
-import com.project.busanHere2.common.MessageDto;
+import com.project.busanHere2.common.dto.MessageDto;
 import com.project.busanHere2.domain.member.MemberDTO;
 import com.project.busanHere2.domain.member.MemberLoginForm;
 import com.project.busanHere2.service.MemberService;

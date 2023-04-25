@@ -17,79 +17,46 @@
 
     <div class="container">
         <div class="content">
-            <div class="inner row">
+            <div class="inner">
                 <p>
                 <th:block th:if="${loginMember}">
                     <a class ="nav-contact" href="/review/new">🍴리뷰 쓰기</a>
                 </th:block>
                 </p>
-
-<!--                <div class="search_box">-->
-<!--                    <form id="searchForm" onsubmit="return false;" autocomplete="off">-->
-<!--                        <div class="sch_group fl">-->
-<!--                            <select id="searchType" name="searchType" title="검색 유형 선택">-->
-<!--                                <option value="">전체 검색</option>-->
-<!--                                <option value="title">제목</option>-->
-<!--                                <option value="content">내용</option>-->
-<!--                                <option value="memberNickName">작성자</option>-->
-<!--                            </select>-->
-<!--                            <input type="text" id="keyword" name="keyword" placeholder="키워드를 입력해 주세요." title="키워드 입력" />-->
-<!--                            <button type="button" class="bt_search" onclick="movePage(1);"><i class="fas fa-search"></i><span class="skip_info">검색</span></button>-->
-<!--                        </div>-->
-<!--                    </form>-->
-<!--                </div>-->
-
             </div>
 
             <section>
 <!--                /* 검색 */-->
-<!--                <div class="search_box">-->
-<!--                    <form id="searchForm" onsubmit="return false;" autocomplete="off">-->
-<!--                        <div class="sch_group fl">-->
-<!--                            <select id="searchType" name="searchType" title="검색 유형 선택">-->
-<!--                                <option value="">전체 검색</option>-->
-<!--                                <option value="title">제목</option>-->
-<!--                                <option value="content">내용</option>-->
-<!--                                <option value="memberNickName">작성자</option>-->
-<!--                            </select>-->
-<!--                            <input type="text" id="keyword" name="keyword" placeholder="키워드를 입력해 주세요." title="키워드 입력" />-->
-<!--                            <button type="button" class="bt_search" onclick="movePage(1);"><i class="fas fa-search"></i><span class="skip_info">검색</span></button>-->
-<!--                        </div>-->
-<!--                    </form>-->
-<!--                </div>-->
-
-                <div class="inner">
-
-                                    <div class="search_box">
-                                        <form id="searchForm" onsubmit="return false;" autocomplete="off">
-                                            <div class="sch_group fl">
-                                                <select id="searchType" name="searchType" title="검색 유형 선택">
-                                                    <option value="">전체 검색</option>
-                                                    <option value="title">제목</option>
-                                                    <option value="content">내용</option>
-                                                    <option value="memberNickName">작성자</option>
-                                                </select>
-                                                <input type="text" id="keyword" name="keyword" placeholder="키워드를 입력해 주세요." title="키워드 입력" />
-                                                <button type="button" class="bt_search" onclick="movePage(1);"><i class="fas fa-search"></i><span class="skip_info">검색</span></button>
-                                            </div>
-                                        </form>
-                                    </div>
+                <div class="search_box">
+                    <form id="searchForm" onsubmit="return false;" autocomplete="off">
+                        <div class="sch_group fl">
+                            <select id="searchType" name="searchType" title="검색 유형 선택">
+                                <option value="">전체 검색</option>
+                                <option value="title">제목</option>
+                                <option value="content">내용</option>
+                                <option value="writer">작성자</option>
+                            </select>
+                            <input type="text" id="keyword" name="keyword" placeholder="키워드를 입력해 주세요." title="키워드 입력" />
+                            <button type="button" class="bt_search" onclick="movePage(1);"><i class="fas fa-search"></i><span class="skip_info">검색</span></button>
+                        </div>
+                    </form>
                 </div>
+
                 <!--/* 리스트 */-->
                 <div class="table inner">
                     <table class="tb tb_col table">
                         <colgroup>
-                            <col style="width:60px;"/>
+                            <col style="width:70px;"/>
                             <col style="width:auto;"/>
                             <col style="width:10%;"/>
-                            <col style="width:auto%;"/>
-                            <col style="width:15%;"/>
+                            <col style="width:10%;"/>
+                            <col style="width:20%;"/>
                             <col style="width:70px;"/>
                         </colgroup>
                         <thead>
                         <tr class="table-primary">
                             <!--                <th scope="col"><input type="checkbox"/></th>-->
-                            <th scope="col">#</th>
+                            <th scope="col">번호</th>
                             <th scope="col">제목</th>
                             <th scope="col">작성자</th>
                             <th scope="col">식당</th>
@@ -103,9 +70,9 @@
                             <!--                        <td th:text="${row.noticeYn == false ? (status.size - status.index) : '공지'}"></td>-->
                             <td><a th:href="@{|/review/${row.boardId}|}" th:text="${row.boardId}"></a></td>
                             <td class="tl"><a th:href="@{|/review/${row.boardId}|}" th:text="${row.title}"></a></td>
-                            <td th:text="${row.nickName}"></td>
-                            <td th:text="${row.shopName}"></td>
-                            <td th:text="${#temporals.format( row.createdAt, 'yyyy-MM-dd' )}"></td>
+                            <td th:text="${row.memberId}"></td>
+                            <td th:text="${row.shopId}"></td>
+                            <td th:text="${#temporals.format( row.createdAt, 'yyyy-MM-dd HH:mm' )}"></td>
                             <td th:text="${row.viewCnt}"></td>
                         </tr>
 
@@ -137,26 +104,9 @@
         /*<![CDATA[*/
 
             window.onload = () => {
-
-                setQueryStringParams();
                 findAllPost();
             }
 
-            // 쿼리 스트링 파라미터 셋팅
-            function setQueryStringParams() {
-
-                 if ( !location.search ) {
-                    return false;
-                    }
-
-                 const form = document.getElementById('searchForm');
-
-                 new URLSearchParams(location.search).forEach((value, key) => {
-                 if (form[key]) {
-                    form[key].value = value;
-                     }
-                  })
-             }
 
             // 게시글 리스트 조회
             function findAllPost() {
@@ -256,8 +206,6 @@
                  */
                 location.href = location.pathname + '?' + new URLSearchParams(queryParams).toString();
             }
-
-
 
         /*]]>*/
         </script>

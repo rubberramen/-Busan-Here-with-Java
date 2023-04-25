@@ -41,17 +41,9 @@
                     <!--/* 게시글 수정인 경우, 서버로 전달할 게시글 번호 (PK) */-->
                     <input type="hidden" id="boardId" name="boardId" th:if="${post != null}"
                            th:value="${post.boardId}"/>
-
+                    <input type="hidden" id="memberId" name="memberId" th:value="${memberId}"/>
                     <!--/* 서버로 전달할 공지글 여부 */-->
                     <input type="hidden" id="noticeYn" name="noticeYn"/>
-
-                    <!--                    <div>-->
-                    <!--                        <label th:for="title">제목</label> <span class="es"></span>-->
-                    <!--                        <input class="form-control" type="text" id="title" name="title" maxlength="50"-->
-                    <!--                               placeholder="제목을 입력해 주세요."/>-->
-
-                    <!--                    </div>-->
-
 
                     <table>
                         <colgroup>
@@ -70,14 +62,14 @@
                         </tr>
 
                         <tr>
-                            <th><label th:for="memberId">작성자</label> <span class="es"></span></th>
-                            <td colspan="3"><input class="form-control" type="text" id="memberId" name="memberId"
-                                                   th:value="${memberId}"
-                                                   maxlength="10" placeholder="ID를 입력해 주세요." readonly/></td>
+                            <th><label th:for="memberNickName">작성자</label> <span class="es"></span></th>
+                            <td colspan="3"><input class="form-control" type="text" id="memberNickName" name="memberNickName"
+                                                   th:value="${memberNickName}"
+                                                   maxlength="10" placeholder="닉네임을 입력해 주세요." readonly/></td>
                         </tr>
 
                         <tr>
-                            <th><label th:for="memberId">식당</label> <span class="es"></span></th>
+                            <th><label th:for="shopId">식당</label> <span class="es"></span></th>
                             <td colspan="3">
                                 <!--                            <input type="text" id="shopId" name="shopId" maxlength="10" placeholder="이름을 입력해 주세요." />-->
                                 <!--                            <select id="shopId" name="shopId" th:field="*{shopId}">-->
@@ -107,7 +99,7 @@
                     </table>
                 </form>
                 <hr class="my-4">
-                <div>
+                <div style="">
                     <button id="saveBtn" type="button" class="btn btn-info" th:onclick="savePost();">
                         저장
                     </button>
@@ -150,8 +142,6 @@
         console.log(form)
 
         const fields = ['boardId', 'title', 'content', 'memberId', 'shopId'];
-        // form.isNotice.checked = post.noticeYn;
-        // form.isNotice.checked = false;
         form.createdDate.value = dayjs(post.createdAt).format('YYYY-MM-DD HH:mm');
 
         fields.forEach(field => {
@@ -171,7 +161,7 @@
                 const form = document.getElementById('saveForm');
                 console.log(form);
                 const fields = [form.title, form.memberId, form.content, form.shopId];
-                const fieldNames = ['제목', '이름', '내용', '식당'];
+                const fieldNames = ['제목', '아이디', '내용', '식당'];
 
                 for (let i = 0, len = fields.length; i < len; i++) {
                     isValid(fields[i], fieldNames[i]);

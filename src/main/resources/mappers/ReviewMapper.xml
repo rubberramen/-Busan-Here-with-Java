@@ -16,7 +16,39 @@
         , updated_at
     </sql>
 
-    <!-- 게시글 저장 -->
+    <!-- 게시글 검색 -->
+    <sql id="search">
+        <!-- 검색 키워드가 있을 때 -->
+        <if test="keyword != null and keyword != ''">
+            <choose>
+                <!-- 검색 유형이 있을 때 -->
+                <when test="searchType != null and searchType != ''">
+                    <choose>
+                        <when test="'title'.equals( searchType )">
+                            AND title LIKE CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="'content'.equals( searchType )">
+                            AND content LIKE CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="'memberNickName'.equals( searchType )">
+                            AND m.nick_name LIKE CONCAT('%', #{keyword}, '%')
+                        </when>
+                    </choose>
+                </when>
+
+                <!-- 전체 검색일 때 -->
+                <otherwise>
+                    AND (
+                    title LIKE CONCAT('%', #{keyword}, '%')
+                    OR content LIKE CONCAT('%', #{keyword}, '%')
+<!--                    OR member_id LIKE CONCAT('%', #{keyword}, '%')-->
+                    )
+                </otherwise>
+            </choose>
+        </if>
+    </sql>
+
+    <!-- 리뷰 저장 -->
     <insert id="save" parameterType="com.project.busanHere2.domain.review.ReviewRequest" useGeneratedKeys="true" keyProperty="boardId">
         INSERT INTO review_board (
         <include refid="ReviewColumns" />
@@ -63,19 +95,55 @@
             board_id = #{boardId}
     </delete>
 
-    <select id="findAll" resultType="com.project.busanHere2.domain.review.ReviewResponse">
+    <select id="findAll" parameterType="com.project.busanHere2.common.dto.SearchDto" resultType="com.project.busanHere2.domain.review.ReviewResponse">
         SELECT
         <include refid="ReviewColumns" />
         FROM
-        review_board
+            review_board
         WHERE
-        delete_yn = 0
+            delete_yn = 0
         ORDER BY
-        board_id DESC
+            board_id DESC
+        LIMIT #{pagination.limitStart}, #{recordSize}
     </select>
 
-    <select id="count" resultType="Integer">
-        SELECT count(*) from review_board
+    <select id="findAll2" parameterType="com.project.busanHere2.common.dto.SearchDto" resultType="com.project.busanHere2.domain.review.ReviewResponse2">
+        SELECT
+            m.nick_name, s.name shopName, rb.*
+        FROM
+            review_board rb
+        join members m
+            on rb.member_id = m.member_id
+        join shops s
+            on rb.shop_id = s.shop_id
+        WHERE
+        delete_yn = 0
+        <include refid="search" />
+            ORDER BY
+        rb.board_id DESC
+        LIMIT #{pagination.limitStart}, #{recordSize}
+    </select>
+
+    <select id="count" parameterType="com.project.busanHere2.common.dto.SearchDto" resultType="Integer">
+        SELECT
+            count(*)
+        FROM
+            review_board
+        WHERE
+            delete_yn = 0
+            <include refid="search" />
+    </select>
+
+    <select id="count2" parameterType="com.project.busanHere2.common.dto.SearchDto" resultType="Integer">
+        SELECT
+            count(*)
+        FROM
+            review_board rb
+        join members m
+            on rb.member_id = m.member_id
+        WHERE
+            delete_yn = 0
+        <include refid="search" />
     </select>
 
 

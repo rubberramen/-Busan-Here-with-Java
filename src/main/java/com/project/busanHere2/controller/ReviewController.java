@@ -1,9 +1,12 @@
 package com.project.busanHere2.controller;
 
-import com.project.busanHere2.common.MessageDto;
+import com.project.busanHere2.common.dto.MessageDto;
+import com.project.busanHere2.common.dto.SearchDto;
+import com.project.busanHere2.common.paging.PagingResponse;
 import com.project.busanHere2.domain.member.MemberDTO;
 import com.project.busanHere2.domain.review.ReviewRequest;
 import com.project.busanHere2.domain.review.ReviewResponse;
+import com.project.busanHere2.domain.review.ReviewResponse2;
 import com.project.busanHere2.domain.shop.ShopForm;
 import com.project.busanHere2.service.MemberService;
 import com.project.busanHere2.service.ReviewService;
@@ -30,13 +33,26 @@ public class ReviewController {
 
     @GetMapping("/list")
     public String reviewList(@SessionAttribute(name = "loginMember", required = false) MemberDTO loginMember,
+                             @ModelAttribute("searchDto") final SearchDto searchDto,
                              Model model, HttpServletRequest request) {
 
         model.addAttribute("loginMember", loginMember);
 
-        List<ReviewResponse> posts = reviewService.findAll();
-        model.addAttribute("posts", posts);
+        PagingResponse<ReviewResponse2> response = reviewService.findAll2(searchDto);
+        model.addAttribute("response", response);
         return "review/reviewList";
+    }
+
+//    @GetMapping("/list")
+    public String reviewListV1(@SessionAttribute(name = "loginMember", required = false) MemberDTO loginMember,
+                             @ModelAttribute("searchDto") final SearchDto searchDto,
+                             Model model, HttpServletRequest request) {
+
+        model.addAttribute("loginMember", loginMember);
+
+        PagingResponse<ReviewResponse> response = reviewService.findAll(searchDto);
+        model.addAttribute("response", response);
+        return "review/reviewListV1";
     }
 
 
@@ -58,8 +74,9 @@ public class ReviewController {
         return "review/reviewWrite";
     }
 
-    @PostMapping("/new")
-    public String saveReview(ReviewRequest reviewRequest, Model model) {
+    @PostMapping("/new")    // TODO: 2023-04-25 025
+    public String saveReview(@SessionAttribute(name = "loginMember", required = false) MemberDTO loginMember,
+                             ReviewRequest reviewRequest, Model model) {
 
         reviewService.save(reviewRequest);
         MessageDto message = new MessageDto("리뷰 생성이 완료되었습니다.", "/review/list",

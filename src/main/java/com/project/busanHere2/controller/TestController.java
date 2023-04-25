@@ -1,8 +1,14 @@
 package com.project.busanHere2.controller;
 
-import com.project.busanHere2.common.MessageDto;
+import com.project.busanHere2.common.dto.MessageDto;
+import com.project.busanHere2.common.dto.SearchDto;
+import com.project.busanHere2.common.dto.TestDto;
+import com.project.busanHere2.common.paging.PagingResponse;
+import com.project.busanHere2.domain.member.MemberDTO;
 import com.project.busanHere2.domain.review.ReviewRequest;
 import com.project.busanHere2.domain.review.ReviewResponse;
+import com.project.busanHere2.domain.review.ReviewResponse2;
+import com.project.busanHere2.mapper.ReviewMapper;
 import com.project.busanHere2.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,12 +16,35 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 @Slf4j
 public class TestController {
+
+    private final ReviewMapper reviewMapper;
+
+    @GetMapping("/test/list2")
+    public String reviewList2(@ModelAttribute("searchDto") final SearchDto searchDto, Model model) {
+
+//        List<ReviewResponse2> all2 = reviewMapper.findAll2();
+
+        PagingResponse<ReviewResponse2> response = reviewService.findAll2(searchDto);
+        model.addAttribute("response", response);
+        return "review/reviewListTest01";
+    }
+
+    @GetMapping("/test/list")
+    public String reviewList(@ModelAttribute("params") final TestDto testDto) {
+
+//        model.addAttribute("loginMember", loginMember);
+
+        String k = "test";
+
+        return "test/test01";
+    }
 
     private final ReviewService reviewService;
 
@@ -46,12 +75,12 @@ public class TestController {
         return showMessageAndRedirect(message, model);
     }
 
-    @GetMapping("/post/list.do")
-    public String openPostList(Model model) {
-        List<ReviewResponse> posts = reviewService.findAll();
-        model.addAttribute("posts", posts);
-        return "post/list1";
-    }
+//    @GetMapping("/post/list.do")
+//    public String openPostList(Model model) {
+//        List<ReviewResponse> posts = reviewService.findAll();
+//        model.addAttribute("posts", posts);
+//        return "post/list1";
+//    }
 
     @GetMapping("/post/view.do")
     public String openPostView(@RequestParam Long boardId, Model model) {
@@ -142,12 +171,12 @@ public class TestController {
         return "template/layoutExtend/layoutExtendMainTest3";
     }
 
-    @GetMapping("/layoutTest/list")
-    public String reviews(Model model) {
-        List<ReviewResponse> posts = reviewService.findAll();
-        model.addAttribute("posts", posts);
-        ReviewResponse reviewResponse = posts.get(0);
-        model.addAttribute("reviewResponse", reviewResponse);
-        return "template/layoutExtend/layoutExtendMainTest4";
-    }
+//    @GetMapping("/layoutTest/list")
+//    public String reviews(Model model) {
+//        List<ReviewResponse> posts = reviewService.findAll();
+//        model.addAttribute("posts", posts);
+//        ReviewResponse reviewResponse = posts.get(0);
+//        model.addAttribute("reviewResponse", reviewResponse);
+//        return "template/layoutExtend/layoutExtendMainTest4";
+//    }
 }

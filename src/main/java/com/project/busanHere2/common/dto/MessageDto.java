@@ -1,4 +1,4 @@
-package com.project.busanHere2.common;
+package com.project.busanHere2.common.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
