@@ -1,16 +1,12 @@
 ## <부산, 이곳은(Busan, here)>
 ### - 부산에 정착한 외지인이 지인에게 추천할 맛집, 명소 지도, 리뷰 웹 서비스
-<!--
-<img src="https://user-images.githubusercontent.com/96553431/168752791-4cda4d98-fb79-4561-9c28-7941b6bb9d49.png" width="175" height="150"><br>
-![busan,here_logo5](https://user-images.githubusercontent.com/96553431/168899776-e026d934-d8af-40ed-8f2c-f3c789022890.png)
--->
 
 <img src="https://user-images.githubusercontent.com/96553431/168899776-e026d934-d8af-40ed-8f2c-f3c789022890.png" width="185" height="150"><br>
 <br>
 
 ### 1. 프로젝트 개요
 - 프로젝트명 : 부산, 이곳은(Busan, here)
-- 개발 기간 : '23.04.~진행 중(65% 완료)
+- 개발 기간 : '23.04.06~ 04.25
 - 프로그램 소개
   - 부산에 정착한 외지인이 지인에게 당당히 추천할 맛집, 명소 지도 웹 서비스
 - 개발 동기
