@@ -1,4 +1,4 @@
-/* 
+/*
 1. 지도 생성 & 확대 축소 컨트롤러
 2. 더미데이터 준비하기 (제목, 주소, url, 카테고리)
 3. 여러개 마커 찍기
@@ -42,10 +42,11 @@ async function getDataSet(category) {
 
     const dataSet = await axios({
         method: "get", // http method
-        url: `http://localhost:9000/shops?category=${qs}`, // `http://localhost:9000/shops?category=${qs}`
+        url: `http://43.200.92.120:9000/shops?category=${qs}`, // `http://localhost:9000/shops?category=${qs}`
         headers: {}, // packet header
         data: {}, // packet body
     });
+    console.log(dataSet);
     return dataSet.data;  //  return dataSet.data.result;
 }
 

@@ -18,7 +18,7 @@
     <select id="findAllMembers" resultType="com.project.busanHere2.domain.member.MemberDTO">
         SELECT *
             FROM
-                members
+                 members
             ORDER BY
                 member_id
     </select>
@@ -26,7 +26,7 @@
     <select id="findByNickName" resultType="com.project.busanHere2.domain.member.MemberDTO">
         SELECT *
             FROM
-                MEMBERS
+                 members
             WHERE
                 nick_name = #{nickName}
     </select>
@@ -34,7 +34,7 @@
     <select id="printAllNickNames" resultType="String">
         SELECT nick_name
         FROM
-        MEMBERS
+        members
     </select>
 
 </mapper>
